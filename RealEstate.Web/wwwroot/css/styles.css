@@ -1,6 +1,11 @@
 ﻿.navbar {
     background-color: whitesmoke;
 }
+.form-label {
+    display: block;
+    text-align: center; /* Başlıkları ortalar */
+    width: 100%;
+}
 
 #loginButton {
     background-color: black;

@@ -12,6 +12,14 @@ builder.Services.AddDbContext<RealEstateContext>(options => options.UseSqlServer
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 
+// Configure session
+builder.Services.AddDistributedMemoryCache(); // Session için önbellek kullanýmý
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session süresi
+    options.Cookie.HttpOnly = true; // Güvenlik için HttpOnly
+    options.Cookie.IsEssential = true; // Session çerezi gerekli
+});
 
 var app = builder.Build();
 
@@ -29,6 +37,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

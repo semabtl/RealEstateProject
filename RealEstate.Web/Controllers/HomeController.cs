@@ -17,6 +17,8 @@ namespace RealEstate.Web.Controllers
 
         public IActionResult Index()
         {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
             ViewData["ActivePage"] = "Home";
             return View();
         }
@@ -38,12 +40,12 @@ namespace RealEstate.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult Login([FromForm] LoginCredentialModel loginModel)
         {
             var result = _loginService.Detail(loginModel.Email, loginModel.Password);
 
             return View();
-        }
+        }*/
     }
 }

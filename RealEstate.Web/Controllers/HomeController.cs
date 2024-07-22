@@ -7,14 +7,14 @@ namespace RealEstate.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+      /*  private readonly ILogger<HomeController> _logger;
         private readonly ILoginService _loginService;
 
         public HomeController(ILoginService loginService)
         {
             _loginService = loginService;
         }
-
+       */
         public IActionResult Index()
         {
             var userEmail = HttpContext.Session.GetString("UserEmail");
@@ -23,22 +23,24 @@ namespace RealEstate.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        /* public IActionResult Privacy()
+         {
+             return View();
+         }
+
+         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+         public IActionResult Error()
+         {
+             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+         }*/
+
+
 
         /*[HttpPost]
         public IActionResult Login([FromForm] LoginCredentialModel loginModel)

@@ -24,4 +24,8 @@
     <ProjectReference Include="..\RealEstate.Entity\RealEstate.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

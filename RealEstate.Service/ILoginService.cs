@@ -10,8 +10,9 @@ namespace RealEstate.Service
 {
     public interface ILoginService
     {
-        Person Detail(string email, string password);
 
         bool Delete(int personId);
+
+        bool CheckPerson(string email, string password);
     }
 }

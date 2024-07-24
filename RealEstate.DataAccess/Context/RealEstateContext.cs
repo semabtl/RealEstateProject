@@ -12,6 +12,11 @@ namespace RealEstate.DataAccess.Context
 {
     public class RealEstateContext : DbContext
     {
+        // Add-Migration RealEstate -o Migrations -Verbose
+        // Update-Database 
+
+        // Package Manager Console
+        // Default Project : RealEstate.DataAccess
 
         public RealEstateContext(DbContextOptions<RealEstateContext> options) : base(options)
         {
@@ -23,8 +28,25 @@ namespace RealEstate.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
         }
-
-        //Entity'ler buraya eklenmelidir. (DB Tablolarin)
+        
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Advert> Adverts { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyContactApplication> CompanyContactApplications { get; set; }
+        public DbSet<ContactApplication> ContactApplications { get; set; }
+        public DbSet<DecreasingPrice> DecreasingPrices { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<PaidAdvert> PaidAdverts { get; set; }
+        public DbSet<PaidAdvertPrice> PaidAdvertPrices { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<Person> Persons { get; set; }
+
+
+
     }
 }

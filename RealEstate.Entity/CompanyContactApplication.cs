@@ -8,6 +8,7 @@ namespace RealEstate.Entity
 {
     public class CompanyContactApplication: BaseEntity
     {
+        public int CompanyContactApplicationID { get; set; }
         public string CompanyName { get; set; }
         public string PhoneNumber { get; set; }
         public int CityID { get; set; }

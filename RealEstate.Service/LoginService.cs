@@ -3,6 +3,7 @@ using RealEstate.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,12 +23,18 @@ namespace RealEstate.Service
             throw new NotImplementedException();
         }
 
-        public Person Detail(string email, string password)
+        public bool CheckPerson(string email, string password)
         {
-            return (from p in _context.Persons
-                    where p.Email == email && p.Password == password && p.IsDeleted == false
-                    select p).FirstOrDefault();
+            Person person = (from p in _context.Persons
+                             where p.Email == email && p.Password == password && p.IsDeleted == false
+                             select p).FirstOrDefault();
 
+            if (person != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
     }

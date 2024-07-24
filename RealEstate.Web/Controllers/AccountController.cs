@@ -33,11 +33,38 @@ namespace RealEstate.Web.Controllers
         [HttpPost("logout")]
         public IActionResult Logout()
         {
-            // Oturumdan e-posta adresini kaldırarak çıkış yap
             HttpContext.Session.Remove("UserEmail");
 
-            // Giriş sayfasına yönlendir
             return RedirectToAction("Login");
         }
+
+        [HttpGet("register/registering-selection")]
+        public IActionResult RegisteringSelection()
+        {
+            return View("~/Views/RegisteringSelection.cshtml");
+        }
+
+        [HttpGet("register/personal-register")]
+        public IActionResult PersonalRegister()
+        {
+            
+            return View("~/Views/PersonalRegister.cshtml");
+        }
+
+        [HttpPost("register/personal-register")]
+        public IActionResult PersonalRegister(PersonalRegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isValid = true;
+
+                if (isValid)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            //Kayıt işlemi yapılamadıysa
+            return View("~/Views/PersonalRegister.cshtml", model);
+        } 
     }
 }

@@ -1,10 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@using RealEstate.Web.Models;
-@model RealEstate.Web.Models.LoginModel;
+﻿@using RealEstate.Web.Models;
+@model RealEstate.Web.Models.PersonalRegisterModel;
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Bireysel Üyelik";
 }
 <head>
     <meta charset="UTF-8">
@@ -16,22 +13,27 @@
 <body>
     <div class="container d-flex justify-content-center align-items-center">
         <div class="col-4 p-3 mt-5">
-            <form asp-action="Login" method="post">
-                <p style="text-align: center;" class="fw-bold fs-3">Üye Girişi</p>
+            <form asp-action="PersonalRegister" method="post">
+                <p style="text-align: center;" class="fw-bold fs-3">Üyelik Bilgileri</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputName" name="Name" placeholder="Ad">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputSurname" name="Surname" placeholder="Soyad">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputPhoneNumber" name="PhoneNumber" placeholder="Telefon Numarası">
+                </div>
                 <div class="mb-3">
                     <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" name="Email" placeholder="E-Posta Adresi">
                 </div>
                 <div class="mb-3">
-
                     <input type="password" class="form-control" id="InputPassword" name="Password" placeholder="Şifre">
-                </div>              
-                <button type="submit" class="btn btn-secondary d-grid gap-2 col-8 mx-auto">Giriş Yap</button>   
-                
-            </form>
-            <a class="btn d-grid gap-2 col-8 mx-auto mt-4" href="register/registering-selection">Üye Değil Misiniz? Üye Olun</a>
+                </div>
+                <button type="submit" class="btn btn-secondary d-grid gap-2 col-8 mx-auto">Üye Ol</button>
+            </form>    
         </div>
-        
     </div>
-    
+
 </body>

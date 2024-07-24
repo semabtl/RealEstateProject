@@ -14,5 +14,6 @@ namespace RealEstate.Entity
         public string StreetName { get; set; }
         public int BuildingNumber { get; set; }
         public int DoorNumber { get; set; }
+        public string Country { get; set; }
     }
 }

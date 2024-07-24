@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Entity
 {
-    public class DecreasingPrice: BaseEntity
+    public class PaidAdvert
     {
-        public int DecreasingPriceID { get; set; }
+        public int PaidAdvertID { get; set; }
         public int AdvertID { get; set; }
-        public double OldPrice { get; set; }
-        public double NewPrice { get; set; }
+        public int PaidTypeID { get; set; }
     }
 }

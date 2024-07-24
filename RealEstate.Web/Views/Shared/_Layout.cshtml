@@ -21,7 +21,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     
                     <li class="nav-item">
-                        <a class="nav-link @((string)ViewData["ActivePage"] == "Home" ? "active" : "")" aria-current="page" href="#">Anasayfa</a>
+                        <a class="nav-link @((string)ViewData["ActivePage"] == "Home" ? "active" : "")" aria-current="page" href="/">Anasayfa</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -59,7 +59,7 @@
                 }
                 else
                 {
-                    <a class="ms-auto btn text-white fw-bold rounded-pill" id="loginButton" href="Account/Login" role="button" style="color: black;">Giriş Yap / Üye Ol</a>
+                    <a class="ms-auto btn text-white fw-bold rounded-pill" id="loginButton" href="/Account/Login" role="button" style="color: black;">Giriş Yap / Üye Ol</a>
                 }
 
             </div>

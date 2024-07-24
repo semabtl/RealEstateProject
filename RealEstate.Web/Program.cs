@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<RealEstateContext>(options => options.UseSqlServer("Server=.;Database=RealEstate;Trusted_Connection=True;"));
 
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IRegisterService, RegisterService>();
 
 // Configure session
 builder.Services.AddDistributedMemoryCache(); // Session için önbellek kullanýmý

@@ -1,11 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstate.DataAccess.Models;
+using RealEstate.Service;
 
 namespace RealEstate.Web.Controllers
 {
     [Route("account")]
     public class AccountController : Controller
     {
+        private readonly ILoginService _loginService;
+        
+        public AccountController(ILoginService loginService)
+        {
+            _loginService = loginService;
+        }
+        
+
         [HttpGet("login")]
         public IActionResult Login()
         {
@@ -18,12 +27,16 @@ namespace RealEstate.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isValid = true;
+                bool userFound = _loginService.CheckPerson(model.Email, model.Password);
 
-                if (isValid)
+                if (userFound)
                 {
                     HttpContext.Session.SetString("UserEmail", model.Email);
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Geçersiz e-posta veya şifre. Kullanıcı bulunamadı.";       
                 }
             }
             return View("~/Views/Login.cshtml", model);
@@ -38,33 +51,6 @@ namespace RealEstate.Web.Controllers
             return RedirectToAction("Login");
         }
 
-        [HttpGet("register/registering-selection")]
-        public IActionResult RegisteringSelection()
-        {
-            return View("~/Views/RegisteringSelection.cshtml");
-        }
-
-        [HttpGet("register/personal-register")]
-        public IActionResult PersonalRegister()
-        {
-            
-            return View("~/Views/PersonalRegister.cshtml");
-        }
-
-        [HttpPost("register/personal-register")]
-        public IActionResult PersonalRegister(PersonalRegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                bool isValid = true;
-
-                if (isValid)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            //Kayıt işlemi yapılamadıysa
-            return View("~/Views/PersonalRegister.cshtml", model);
-        } 
+        
     }
 }

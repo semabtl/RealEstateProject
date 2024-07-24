@@ -15,7 +15,7 @@ namespace RealEstate.Entity
         public string Email { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
-        public int CompanyID { get; set; }
+        public int? CompanyID { get; set; }
        
     }
 

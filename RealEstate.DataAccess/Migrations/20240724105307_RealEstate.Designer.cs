@@ -12,7 +12,7 @@ using RealEstate.DataAccess.Context;
 namespace RealEstate.DataAccess.Migrations
 {
     [DbContext(typeof(RealEstateContext))]
-    [Migration("20240723204225_RealEstate")]
+    [Migration("20240724105307_RealEstate")]
     partial class RealEstate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -496,7 +496,7 @@ namespace RealEstate.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonID"), 1L, 1);
 
-                    b.Property<int>("CompanyID")
+                    b.Property<int?>("CompanyID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")

@@ -16,6 +16,12 @@
             <form asp-action="PersonalRegister" method="post">
                 <p style="text-align: center;" class="fw-bold fs-3">Üyelik Bilgileri</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
                 <div class="mb-3">
                     <input class="form-control" id="InputName" name="Name" placeholder="Ad">
                 </div>

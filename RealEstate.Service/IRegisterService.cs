@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RealEstate.DataAccess.Models;
+using RealEstate.Entity;
 
 namespace RealEstate.Service
 {
     public interface IRegisterService
     {
-        bool AddNewPersonalAccount(PersonalRegisterModel model)
-        {
-            return true;//
-        }
+        Task<(bool success, string message)> AddPersonAsync(PersonalRegisterModel model);
+
     }
 }

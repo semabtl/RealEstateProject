@@ -1,24 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@using RealEstate.DataAccess.Models;
+﻿@using RealEstate.DataAccess.Models;
 @model RealEstate.DataAccess.Models.LoginModel;
 @{
     ViewBag.Title = "Login";
 }
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href=" ~/css/styles.css">
-</head>
 <body>
     <div class="container d-flex justify-content-center align-items-center">
         <div class="col-4 p-3 mt-5">
             <form asp-action="Login" method="post">
                 <p style="text-align: center;" class="fw-bold fs-3">Üye Girişi</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
                 <div class="mb-3">
                     <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" name="Email" placeholder="E-Posta Adresi">
                 </div>
@@ -29,7 +25,7 @@
                 <button type="submit" class="btn btn-secondary d-grid gap-2 col-8 mx-auto">Giriş Yap</button>   
                 
             </form>
-            <a class="btn d-grid gap-2 col-8 mx-auto mt-4" href="register/registering-selection">Üye Değil Misiniz? Üye Olun</a>
+            <a class="btn d-grid gap-2 col-8 mx-auto mt-4" href="/register/registering-selection">Üye Değil Misiniz? Üye Olun</a>
         </div>
         
     </div>

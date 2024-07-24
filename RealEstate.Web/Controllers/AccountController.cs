@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RealEstate.Web.Models;
+using RealEstate.DataAccess.Models;
 
 namespace RealEstate.Web.Controllers
 {

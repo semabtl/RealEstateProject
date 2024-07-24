@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstate.Service;
-using RealEstate.Web.Models;
+using RealEstate.DataAccess.Models;
 using System.Diagnostics;
 
 namespace RealEstate.Web.Controllers

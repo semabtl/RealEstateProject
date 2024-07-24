@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RealEstate.Web.Models
+namespace RealEstate.DataAccess.Models
 {
     public class LoginModel
     {

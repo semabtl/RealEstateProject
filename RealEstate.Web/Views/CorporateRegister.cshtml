@@ -4,5 +4,58 @@
     ViewBag.Title = "Kurumsal Üyelik";
 }
 <body>
-    
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-4 p-3 mt-3 mb-3">
+            <form asp-action="CorporateRegister" method="post">
+                <p style="text-align: center;" class="fw-bold fs-3 mb-3">Kurumsal Üyelik Bilgileri</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+                <label class ="mb-3 fw-bold">Şirket Yetkilisi Bilgileri</label>
+                <div class="mb-3">   
+                    <input class="form-control" id="InputName" name="Name" placeholder="Ad">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputSurname" name="Surname" placeholder="Soyad">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputPhoneNumber" name="PhoneNumber" placeholder="Telefon Numarası">
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" name="Email" placeholder="E-Posta Adresi">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="InputPassword" name="Password" placeholder="Şifre">
+                </div>
+
+                <label class="mb-3 mt-3 fw-bold">Şirket Bilgileri</label>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCompanyName" name="CompanyName" placeholder="Şirket Adı">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCountry" name="Country" placeholder="Ülke">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCity" name="CityName" placeholder="İl">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputDistrict" name="DistrictName" placeholder="İlçe">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputStreet" name="Street" placeholder="Mahalle/Cadde/Sokak">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputBuildingNumber" name="BuildingNumber" placeholder="Bina Numarası">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputDoorNumber" name="DoorNumber" placeholder="Kapı Numarası">
+                </div>
+                <button type="submit" class="btn btn-secondary d-grid gap-2 col-8 mx-auto">Üye Ol</button>
+            </form>
+        </div>
+    </div>
 </body>

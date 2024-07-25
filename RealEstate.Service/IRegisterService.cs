@@ -11,6 +11,7 @@ namespace RealEstate.Service
     public interface IRegisterService
     {
         Task<(bool success, string message)> AddPersonAsync(PersonalRegisterModel model);
+        Task<(bool success, string message)> AddCorporateAccountAsync(CorporateRegisterModel model);
 
     }
 }

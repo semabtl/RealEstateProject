@@ -26,6 +26,13 @@ namespace RealEstate.Web.Controllers
             return View("~/Views/PersonalRegister.cshtml");
         }
 
+        [HttpGet("corporate-register")]
+        public IActionResult CorporateRegister()
+        {
+
+            return View("~/Views/CorporateRegister.cshtml");
+        }
+
         /* [HttpPost("register/personal-register")]
          public IActionResult PersonalRegister(PersonalRegisterModel model)
          {
@@ -71,6 +78,25 @@ namespace RealEstate.Web.Controllers
             }
                
             return View("~/Views/PersonalRegister.cshtml", model);
+        }
+
+        [HttpPost("corporate-register")]
+        public async Task<IActionResult> CorporateRegister(CorporateRegisterModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var result = await _registerService.AddCorporateAccountAsync(model);
+                if (result.success)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = result.message;
+                }
+            }
+            return View("~/Views/CorporateRegister.cshtml", model);
+
         }
     }
 }

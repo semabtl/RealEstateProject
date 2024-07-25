@@ -10,7 +10,7 @@ namespace RealEstate.Entity
     {
         public int CompanyID { get; set; }
         public string CompanyName { get; set; }
-        public int AddressID { get; set; }
+        public int? AddressID { get; set; }
         public int PersonID { get; set; }
 
     }

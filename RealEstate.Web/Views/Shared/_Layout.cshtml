@@ -46,20 +46,24 @@
                         </ul>
 
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kurumsal Üyelik</a>
-                    </li>
-                    
+                    @if (ViewBag.UserEmail == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kurumsal Üyelik</a>
+                        </li>
+                    }
                 </ul>
                 @if (ViewBag.UserEmail != null)
                 {
+                    <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/advertise" role="button" style="background-color: green !important;">İlan Ver</a>
                     <form method="post" action="/Account/Logout" style="display:inline;">
-                        <button type="submit" class="ms-auto btn text-white fw-bold rounded-pill" id="logoutButton" style="background-color: black !important;"> Çıkış Yap</button>
+                        <button type="submit" class="ms-1 btn text-white fw-bold rounded-pill" id="logoutButton" style="background-color: black !important;"> Çıkış Yap</button>
                     </form>
                 }
                 else
                 {
                     <a class="ms-auto btn text-white fw-bold rounded-pill" id="loginButton" href="/Account/Login" role="button" style="color: black;">Giriş Yap / Üye Ol</a>
+                    <a class="ms-1 btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/Account/Login" role="button" style="background-color: green !important;">İlan Ver</a>
                 }
 
             </div>

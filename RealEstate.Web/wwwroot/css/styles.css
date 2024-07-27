@@ -11,7 +11,9 @@
     background-color: black;
     
 }
-
+#AdvertiseButton{
+    background-color: green !important;
+}
 #logoutButton {
     background-color: black;
 }

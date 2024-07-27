@@ -9,7 +9,7 @@ namespace RealEstate.Entity
     public  class Advert: BaseEntity
     {
         public int AdvertID { get; set; }
-        public int AddressID { get; set; }
+        public int? AddressID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         

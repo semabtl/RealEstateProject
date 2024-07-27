@@ -1,0 +1,161 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "İlan Ver";
+}
+<head>
+    <style>
+        .file-preview {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .file-preview img {
+                max-width: 300px; /* Adjust size */
+                max-height: 300px; /* Adjust size */
+                object-fit: cover; /* Ensure image aspect ratio is preserved */
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+        .form-control-image {
+            max-width: 350px; /* Set max-width for form inputs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row w-100 mt-2 ">
+            <form asp-action="AddNewAdvert" method="post" enctype="multipart/form-data">
+                <div class="row w-100 mt-3 ">
+                    <div class="col-lg-3 col-md-8 p-3 mx-5">
+                        <p style="text-align: center;" class="fw-bold fs-3">İlan Bilgileri</p>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+                        {
+                            <div class="alert alert-success">
+                                @ViewBag.SuccessMessage
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.ErrorMessage
+                            </div>
+                        }
+                        <div class="dropdown mb-3">
+                            <button id="freeOrPaidChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ücretsiz - Ücretli İlan Seçimi
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="freeOrPaidChoiceDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Ücretsiz İlan</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Anasayfada Öne Çıkar - 50TL</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Sıralamada En Üste Yerleştir - 50TL</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Çerçeve İçinde Göster - 50TL</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown mb-3">
+                            <button id="advertTypeChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                İlan Türü
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="advertTypeChoiceDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'advertTypeChoiceDropdown')">Satılık</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'advertTypeChoiceDropdown')">Kiralık</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown mb-3">
+                            <button id="propertyTypeChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Emlak Türü
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="propertyTypeChoiceDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown')">Ev</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown')">Arazi</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown')">İş Yeri</a></li>
+                            </ul>
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputTitle" name="Title" placeholder="Başlık">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputDescription" name="Description" placeholder="Açıklama">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputSquareMeters" name="SquareMeters" placeholder="Metrekare">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputPrice" name="Price" placeholder="Fiyat">
+                        </div>
+                           
+                    </div>
+
+                    <div class="col-lg-3 col-md-8 p-3">
+                        <p style="text-align: center;" class="fw-bold fs-3">Adres Bilgileri</p>
+                        <div class="mb-3 mt-4">
+                            <input class="form-control" id="InputCountry" name="Country" placeholder="Ülke">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputCityName" name="CityName" placeholder="İl">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputDistrictName" name="DistrictName" placeholder="İlçe">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputStreet" name="Street" placeholder="Mahalle/Sokak/Cadde">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputBuildingNumber" name="BuildingNumber" placeholder="Bina Numarası">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" id="InputDoorNumber" name="DoorNumber" placeholder="Kapı Numarası">
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-3 col-md-8 p-3">
+                        <div class="mb-3">
+                            <p style="text-align: left;" class="fw-bold fs-3">Fotoğraf Yükle</p>
+                            <input type="file" id="fileInput" name="files" class="form-control form-control-image" multiple>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="container d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn text-white fw-bold btn-lg mx-auto" style="background-color: darkred !important;">İlan Ver</button>
+                </div>
+                
+            </form>
+
+            <div class="container ms-5 mt-4">
+                <div id="filePreview" class="file-preview"></div>
+            </div>
+           
+            <script>
+                function selectItem(element, buttonId) {
+                    var selectedItem = element.textContent;
+                    document.getElementById(buttonId).textContent = selectedItem;
+                }
+            </script>
+
+            <script>
+                const fileInput = document.getElementById('fileInput');
+                const filePreview = document.getElementById('filePreview');
+
+                fileInput.addEventListener('change', () => {
+                    filePreview.innerHTML = '';
+                    const files = fileInput.files;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        if (file.type.startsWith('image/')) {
+                            const img = document.createElement('img');
+                            img.src = URL.createObjectURL(file);
+                            filePreview.appendChild(img);
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</body>

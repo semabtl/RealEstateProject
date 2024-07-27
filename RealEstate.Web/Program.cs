@@ -7,11 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//HttpContext.Session yerine kullaným için
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<RealEstateContext>(options => options.UseSqlServer("Server=.;Database=RealEstate;Trusted_Connection=True;"));
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
+builder.Services.AddScoped<IAddNewAdvertService, AddNewAdvertService>();
 
 // Configure session
 builder.Services.AddDistributedMemoryCache(); // Session için önbellek kullanýmý

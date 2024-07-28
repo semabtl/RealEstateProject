@@ -20,7 +20,7 @@ namespace RealEstate.Service
         {
             _context = context;
         }
-        public async Task<(bool success, string message)> AddAdvertAsync(AddNewAdvertModel model, string userEmail)
+        public async Task<(bool success, string message, int advertID)> AddAdvertAsync(AddNewAdvertModel model, string userEmail)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
@@ -28,10 +28,6 @@ namespace RealEstate.Service
                 {
                     var existingPerson = await _context.Persons.FirstOrDefaultAsync(p => p.Email == userEmail);
 
-                    if (existingPerson == null)
-                    {
-                        return (false, "İlan kaydı yapılamadı");
-                    }
                     var advertEntity = new Advert
                     {
                         PersonID = existingPerson.PersonID,
@@ -50,14 +46,14 @@ namespace RealEstate.Service
                     var city = await _context.Cities.FirstOrDefaultAsync(c => c.CityName == model.CityName);
                     if (city == null)
                     {
-                        return (false, "İl adı yanlış.");
+                        return (false, "İl adı yanlış.", 0);
                     }
 
                     //Girilen ada sahip ilçenin varlığı kontrol edilir.
                     var district = await _context.Districts.FirstOrDefaultAsync(d => d.DistrictName == model.DistrictName);
                     if (district == null)
                     {
-                        return (false, "İlçe adı yanlış.");
+                        return (false, "İlçe adı yanlış.", 0);
                     }
                     //İl ve ilçe ID değerleri de alınarak kurum adresi kaydedilir.
                     var addressEntity = new Address
@@ -76,6 +72,52 @@ namespace RealEstate.Service
                     await _context.SaveChangesAsync();
 
                     await transaction.CommitAsync();
+                    return (true, "Kayıt başarıyla tamamlandı.", advertEntity.AdvertID);
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    return (false, "İlan kaydı yapılamadı.", 0);
+                }
+            }
+            
+        }
+
+        public async Task<(bool success, string message)> AddPaidAdvertAsync(string userEmail, int advertID)
+        {
+            using (var transaction = await _context.Database.BeginTransactionAsync()) {
+                try
+                {
+                    var paidAdvertPricesObject = await _context.PaidAdvertPrices.FirstOrDefaultAsync(p => p.Title == model.PaidAdvertChoice);
+                    if (paidAdvertPricesObject == null)
+                    {
+                        return (false, "Ücretli ilan türü bulunamadı.");
+                    }
+
+                    var paidAdvertEntity = new PaidAdvert
+                    {
+                        PaidTypeID = paidAdvertPricesObject.ID,
+                        AdvertID = advertID
+                    };
+                    _context.PaidAdverts.Add(paidAdvertEntity);
+                    await _context.SaveChangesAsync();
+
+                    var person = await _context.Persons.FirstOrDefaultAsync(p => p.Email == userEmail);
+                    if (person == null)
+                    {
+                        return (false, "Kişi bulunamadı.");
+                    }
+
+                    var paymentEntity = new Payment
+                    {
+                        PersonID = person.PersonID,
+                        PaidAdvertID = paidAdvertEntity.PaidAdvertID,
+                        Amount = paidAdvertPricesObject.Price
+                    };
+                    _context.Payments.Add(paymentEntity);
+                    await _context.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
                     return (true, "Kayıt başarıyla tamamlandı.");
                 }
                 catch (Exception ex)
@@ -89,3 +131,5 @@ namespace RealEstate.Service
 
     }
 }
+//iki sssyrı metod olsun diğerinde saydece payment olsun, adres olmasın.
+//ücretsizse aktif 1 yap. ücretliyse 0 olsun. ödeme yapınca 1'e çevirirsin.

@@ -1,0 +1,96 @@
+﻿@using RealEstate.DataAccess.Models
+@Model RealEstate.DataAccess.Models.AddNewAdvertModel
+
+@{
+    ViewBag.Title = "Ödeme";
+}
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-4 p-3 mt-5">
+            <form asp-action="AddNewAdvert" method="post">
+                <p style="text-align: center;" class="fw-bold fs-3">Kart Bilgileri</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCardNumber" name="CardNumber" placeholder="Kart Numarası">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCardName" name="CardName" placeholder="Kart Üzerindeki Ad Soyad">
+                </div>
+
+                <p>Son Kullanma Tarihi</p>
+                <div class="dropdown mb-3">
+                    <button id="monthDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ay
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">1</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">2</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">3</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">4</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">5</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">6</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">7</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">8</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">9</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">10</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthDropdown'monthChoice')">11</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'monthDropdown', 'monthChoice')">12</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" id="monthChoice" name="month" value="">
+
+                <div class="dropdown mb-3">
+                    <button id="yearDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Yıl
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="yearDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2024</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2025</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2026</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2027</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2028</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2029</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2030</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2031</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2032</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2033</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2034</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'yearDropdown', 'yearChoice')">2035</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" id="yearChoice" name="year" value="">
+
+                <div class="mb-3">
+                    <input class="form-control" id="InputCVV" name="CVV" placeholder="CVV" style="width: 25%">
+                </div>
+
+                <input type="hidden" name="Title" value="@Model.Title">
+                <input type="hidden" name="Description" value="@Model.Description">
+                <input type="hidden" name="ListingType" value="@Model.ListingType">
+                <input type="hidden" name="PropertyType" value="@Model.PropertyType">
+                <input type="hidden" name="SquareMeters" value="@Model.SquareMeters">
+                <input type="hidden" name="Price" value="@Model.Price">
+                <input type="hidden" name="CityName" value="@Model.CityName">
+                <input type="hidden" name="Street" value="@Model.Street">
+                <input type="hidden" name="BuildingNumber" value="@Model.BuildingNumber">
+                <input type="hidden" name="DoorNumber" value="@Model.DoorNumber">
+                <input type="hidden" name="DistrictName" value="@Model.DistrictName">
+                <input type="hidden" name="PaidAdvertChoice" value="@Model.PaidAdvertChoice">
+
+
+                <div class="container d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn btn-outline text-black fw-bold mx-auto" style="background-color: lightgreen !important;">Ödeme Yap</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+    <script>
+        function selectItem(element, buttonId, hiddenInputId) {
+            var selectedItem = element.textContent;
+            document.getElementById(buttonId).textContent = selectedItem;
+            document.getElementById(hiddenInputId).value = selectedItem;
+        }
+    </script>
+</body>

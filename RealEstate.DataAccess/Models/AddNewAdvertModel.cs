@@ -35,5 +35,7 @@ namespace RealEstate.DataAccess.Models
 
         [Required(ErrorMessage = "İlçe adı alanı zorunludur.")]
         public string DistrictName { get; set; }
+
+        public string PaidAdvertChoice { get; set; }
     }
 }

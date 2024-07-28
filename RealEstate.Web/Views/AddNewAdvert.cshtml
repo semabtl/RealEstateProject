@@ -47,35 +47,41 @@
                             </div>
                         }
                         <div class="dropdown mb-3">
-                            <button id="freeOrPaidChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button id="paidAdvertChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Ücretsiz - Ücretli İlan Seçimi
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="freeOrPaidChoiceDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Ücretsiz İlan</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Anasayfada Öne Çıkar - 50TL</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Sıralamada En Üste Yerleştir - 50TL</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'freeOrPaidChoiceDropdown')">Çerçeve İçinde Göster - 50TL</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="paidAdvertChoiceDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'paidAdvertChoiceDropdown', 'paidAdvertChoice', 'Ücretsiz İlan')">Ücretsiz İlan</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'paidAdvertChoiceDropdown', 'paidAdvertChoice', 'Anasayfada Öne Çıkar')">Anasayfada Öne Çıkar - 50TL</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'paidAdvertChoiceDropdown', 'paidAdvertChoice', 'Sıralamada En Üste Yerleştir')">Sıralamada En Üste Yerleştir - 50TL</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'paidAdvertChoiceDropdown', 'paidAdvertChoice', 'Çerçeve İçinde Göster')">Çerçeve İçinde Göster - 50TL</a></li>
                             </ul>
                         </div>
+                        <input type="hidden" id="paidAdvertChoice" name="PaidAdvertChoice" value="">
+
                         <div class="dropdown mb-3">
-                            <button id="advertTypeChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button id="listingTypeChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 İlan Türü
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="advertTypeChoiceDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'advertTypeChoiceDropdown')">Satılık</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'advertTypeChoiceDropdown')">Kiralık</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="listingTypeChoiceDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'listingTypeChoiceDropdown', 'listingTypeChoice', 'ForSale')">Satılık</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'listingTypeChoiceDropdown', 'listingTypeChoice', 'ForRent')">Kiralık</a></li>
                             </ul>
                         </div>
+                        <input type="hidden" id="listingTypeChoice" name="ListingType" value="">
+
                         <div class="dropdown mb-3">
                             <button id="propertyTypeChoiceDropdown" class="btn fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Emlak Türü
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="propertyTypeChoiceDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown')">Ev</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown')">Arazi</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown')">İş Yeri</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown', 'propertyTypeChoice', 'House')">Ev</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown', 'propertyTypeChoice', 'Land')">Arazi</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="selectItem(this, 'propertyTypeChoiceDropdown', 'propertyTypeChoice', 'Workplace')">İş Yeri</a></li>
                             </ul>
                         </div>
+                        <input type="hidden" id="propertyTypeChoice" name="PropertyType" value="">
+
                         <div class="mb-3">
                             <input class="form-control" id="InputTitle" name="Title" placeholder="Başlık">
                         </div>
@@ -132,13 +138,16 @@
                 <div id="filePreview" class="file-preview"></div>
             </div>
            
+            <!--Seçilen dropdown seçeneğinin ekranda gözükmesi ve değerinin formla gönderilen modele eklenmesi için-->
             <script>
-                function selectItem(element, buttonId) {
+                function selectItem(element, buttonId, hiddenInputId, value) {
                     var selectedItem = element.textContent;
                     document.getElementById(buttonId).textContent = selectedItem;
+                    document.getElementById(hiddenInputId).value = value;
                 }
             </script>
 
+            <!--Seçilen görsellerin ekranda görünmesi için-->
             <script>
                 const fileInput = document.getElementById('fileInput');
                 const filePreview = document.getElementById('filePreview');

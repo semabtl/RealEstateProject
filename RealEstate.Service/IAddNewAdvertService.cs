@@ -10,6 +10,6 @@ namespace RealEstate.Service
     public interface IAddNewAdvertService
     {
         Task<(bool success, string message, int advertID)> AddAdvertAsync(AddNewAdvertModel model, string userEmail);
-        Task<(bool success, string message)> AddPaidAdvertAsync(string userEmail, int advertID);
+        Task<(bool success, string message)> AddPaidAdvertAsync(string paidAdvertChoice, string userEmail);
     }
 }

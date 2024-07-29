@@ -1,5 +1,5 @@
 ﻿@using RealEstate.DataAccess.Models
-@Model RealEstate.DataAccess.Models.AddNewAdvertModel
+@model RealEstate.DataAccess.Models.AddNewAdvertModel
 
 @{
     ViewBag.Title = "Ödeme";
@@ -7,7 +7,7 @@
 <body>
     <div class="container d-flex justify-content-center align-items-center">
         <div class="col-4 p-3 mt-5">
-            <form asp-action="AddNewAdvert" method="post">
+            <form asp-action="AddNewPaidAdvert" method="post">
                 <p style="text-align: center;" class="fw-bold fs-3">Kart Bilgileri</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
@@ -64,19 +64,7 @@
                     <input class="form-control" id="InputCVV" name="CVV" placeholder="CVV" style="width: 25%">
                 </div>
 
-                <input type="hidden" name="Title" value="@Model.Title">
-                <input type="hidden" name="Description" value="@Model.Description">
-                <input type="hidden" name="ListingType" value="@Model.ListingType">
-                <input type="hidden" name="PropertyType" value="@Model.PropertyType">
-                <input type="hidden" name="SquareMeters" value="@Model.SquareMeters">
-                <input type="hidden" name="Price" value="@Model.Price">
-                <input type="hidden" name="CityName" value="@Model.CityName">
-                <input type="hidden" name="Street" value="@Model.Street">
-                <input type="hidden" name="BuildingNumber" value="@Model.BuildingNumber">
-                <input type="hidden" name="DoorNumber" value="@Model.DoorNumber">
-                <input type="hidden" name="DistrictName" value="@Model.DistrictName">
                 <input type="hidden" name="PaidAdvertChoice" value="@Model.PaidAdvertChoice">
-
 
                 <div class="container d-flex justify-content-center align-items-center">
                     <button type="submit" class="btn btn-outline text-black fw-bold mx-auto" style="background-color: lightgreen !important;">Ödeme Yap</button>

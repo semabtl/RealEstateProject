@@ -18,6 +18,7 @@ namespace RealEstate.Entity
         public float SquareMeters { get; set; }
         public double Price { get; set; }
         public int PersonID { get; set; }
+        public Status Status { get; set; } = Status.Passive;
 
     }
 
@@ -32,5 +33,11 @@ namespace RealEstate.Entity
         House = 1,
         Land = 2,
         Workplace = 3
+    }
+
+    public enum Status
+    {
+        Passive = 0,
+        Active = 1
     }
 }

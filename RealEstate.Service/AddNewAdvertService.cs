@@ -27,7 +27,7 @@ namespace RealEstate.Service
                 try
                 {
                     var existingPerson = await _context.Persons.FirstOrDefaultAsync(p => p.Email == userEmail);
-
+                    
                     var advertEntity = new Advert
                     {
                         PersonID = existingPerson.PersonID,
@@ -42,6 +42,12 @@ namespace RealEstate.Service
                     _context.Adverts.Add(advertEntity);
                     await _context.SaveChangesAsync();
 
+                    if(model.PaidAdvertChoice.Equals("Ücretsiz İlan"))
+                    {
+                        advertEntity.Status = Status.Active;
+                        _context.Adverts.Update(advertEntity);
+                        await _context.SaveChangesAsync();
+                    }
                     //Girilen ada sahip ilin varlığı kontrol edilir.
                     var city = await _context.Cities.FirstOrDefaultAsync(c => c.CityName == model.CityName);
                     if (city == null)
@@ -83,12 +89,27 @@ namespace RealEstate.Service
             
         }
 
-        public async Task<(bool success, string message)> AddPaidAdvertAsync(string userEmail, int advertID)
+        public async Task<(bool success, string message)> AddPaidAdvertAsync(string paidAdvertChoice, string userEmail)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync()) {
                 try
-                {
-                    var paidAdvertPricesObject = await _context.PaidAdvertPrices.FirstOrDefaultAsync(p => p.Title == model.PaidAdvertChoice);
+                { 
+                    var latestAdvert = await _context.Adverts.OrderByDescending(a => a.AdvertID).FirstOrDefaultAsync();
+                    var latestAdvertId = 0;
+
+                    if (latestAdvert != null)
+                    {
+                        latestAdvertId = latestAdvert.AdvertID;
+                        latestAdvert.Status = Status.Active;
+                        _context.Update(latestAdvert);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        return (false, "Hata");
+                    }
+
+                    var paidAdvertPricesObject = await _context.PaidAdvertPrices.FirstOrDefaultAsync(p => p.Title == paidAdvertChoice);
                     if (paidAdvertPricesObject == null)
                     {
                         return (false, "Ücretli ilan türü bulunamadı.");
@@ -97,7 +118,7 @@ namespace RealEstate.Service
                     var paidAdvertEntity = new PaidAdvert
                     {
                         PaidTypeID = paidAdvertPricesObject.ID,
-                        AdvertID = advertID
+                        AdvertID = latestAdvertId
                     };
                     _context.PaidAdverts.Add(paidAdvertEntity);
                     await _context.SaveChangesAsync();
@@ -117,7 +138,9 @@ namespace RealEstate.Service
                     _context.Payments.Add(paymentEntity);
                     await _context.SaveChangesAsync();
 
+
                     await transaction.CommitAsync();
+
                     return (true, "Kayıt başarıyla tamamlandı.");
                 }
                 catch (Exception ex)

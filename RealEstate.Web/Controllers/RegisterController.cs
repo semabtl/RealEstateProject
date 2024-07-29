@@ -33,37 +33,11 @@ namespace RealEstate.Web.Controllers
             return View("~/Views/CorporateRegister.cshtml");
         }
 
-        /* [HttpPost("register/personal-register")]
-         public IActionResult PersonalRegister(PersonalRegisterModel model)
-         {
-             if (ModelState.IsValid)
-             {
-                 //DEĞİŞTİRİLECEK
-                 bool isValid = true;
-
-                 if (isValid)
-                 {
-                     return RedirectToAction("Index", "Home");
-                 }
-             }
-             //Kayıt işlemi yapılamadıysa
-             return View("~/Views/PersonalRegister.cshtml", model);
-         } */
-
         [HttpPost("personal-register")]
         public async Task<IActionResult> PersonalRegister(PersonalRegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                /* bool isSuccess = await _registerService.AddPersonAsync(model);
-                 if (isSuccess)
-                 {
-                     return RedirectToAction("Index", "Home");
-                 }
-                 else
-                 {
-                     ViewBag.ErrorMessage = "Kayıt işlemi yapılamadı.";
-                 }*/
 
                 var result = await _registerService.AddPersonAsync(model);
                 if (result.success)

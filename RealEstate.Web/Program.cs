@@ -15,6 +15,7 @@ builder.Services.AddDbContext<RealEstateContext>(options => options.UseSqlServer
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IAddNewAdvertService, AddNewAdvertService>();
+builder.Services.AddScoped<IContactApplicationService, ContactApplicationService>();
 
 // Configure session
 builder.Services.AddDistributedMemoryCache(); // Session için önbellek kullanýmý

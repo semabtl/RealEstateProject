@@ -13,10 +13,7 @@ namespace RealEstate.Web.Controllers
         {
             _addAdvertService = addAdvertService;
         }
-        /* public IActionResult Index()
-         {
-             return View();
-         }*/
+
         [HttpGet("advertise")]
         public IActionResult AddNewAdvert()
         {

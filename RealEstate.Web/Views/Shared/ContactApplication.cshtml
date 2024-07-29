@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Bize Ulaşın";
+}
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-4 p-3 mt-5">
+            <form asp-action="ContactApplication" method="post">
+                @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+                {
+                    <div class="alert alert-success">
+                        @ViewBag.SuccessMessage
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+
+                <p style="text-align: center;" class="fw-bold fs-3">Bize Ulaşın</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputName" name="Name" placeholder="Ad *">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputSurname" name="Surname" placeholder="Soyad *">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputPhoneNumber" name="PhoneNumber" placeholder="Telefon Numarası *">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" id="InputMessageText" name="MessageText" placeholder="Mesajınız *" rows="4"></textarea>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Kişisel Verilerin İşlenmesiyle İlgili Aydınlatma Metnini okudum ve anladım.
+                    </label>
+                </div>
+
+                <div class="container d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn text-white fw-bold mx-auto" style="background-color: limegreen !important;">Mesajı Gönder</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>

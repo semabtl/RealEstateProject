@@ -27,6 +27,7 @@ namespace RealEstate.Service
                          where city.CityName == cityName
                          select new ListAdvertsModel
                          {
+                             AdvertID = advert.AdvertID,
                              Title = advert.Title,
                              Description = advert.Description,
                              ListingType = advert.ListingType,
@@ -42,6 +43,31 @@ namespace RealEstate.Service
                          };
             return result.ToList();
 
+        }
+        public ListAdvertsModel GetAdvertByID(int advertID)
+        {
+            var result = (from advert in _context.Adverts
+                         join address in _context.Addresses on advert.AddressID equals address.AddressID
+                         join city in _context.Cities on address.CityID equals city.CityID
+                         join district in _context.Districts on address.DistrictID equals district.DistrictID
+                         where advert.AdvertID == advertID
+                         select new ListAdvertsModel
+                         {
+                             AdvertID = advert.AdvertID,
+                             Title = advert.Title,
+                             Description = advert.Description,
+                             ListingType = advert.ListingType,
+                             PropertyType = advert.PropertyType,
+                             SquareMeters = advert.SquareMeters,
+                             Price = advert.Price,
+                             CityName = city.CityName,
+                             Street = address.StreetName,
+                             BuildingNumber = address.BuildingNumber,
+                             DoorNumber = address.DoorNumber,
+                             Country = address.Country,
+                             DistrictName = district.DistrictName,
+                         }).FirstOrDefault();
+            return result;
         }
        
     

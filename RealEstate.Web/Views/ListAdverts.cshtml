@@ -18,7 +18,7 @@
                         <p class="card-text">@advert.Description</p>
                         <p class="card-text fs-5">@advert.Price TL</p>
 
-                        <a href="#" class="btn btn-outline-dark btn-sm">İncele</a>
+                        <a href="@Url.Action("GetAdvert", "ListAdverts", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn-sm">İncele</a>
                     </div>
                 </div>
             }

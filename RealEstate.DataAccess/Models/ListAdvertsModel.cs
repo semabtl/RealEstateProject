@@ -10,7 +10,7 @@ namespace RealEstate.DataAccess.Models
 {
     public class ListAdvertsModel
     {
-       
+        public int AdvertID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public ListingType ListingType { get; set; }

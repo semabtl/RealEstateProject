@@ -1,10 +1,76 @@
 ﻿@{
     ViewData["Title"] = "Anasayfa";
-    Layout = "_Layout";
 }
+@model IEnumerable<AllCitiesModel>
+
 <body>
-    <div class="text-center">
-        <p>Welcome</p>
+    <h5 class="mt-5">Öne Çıkan İlanlar</h5>
+    <div class="container text-center mt-3">
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-outline-dark btn-sm">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>     
+        </div>
     </div>
+    <h5 class="mt-5">Tüm İlanlar</h5>
+    <div class="container text-center mt-3">
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="row">
+                    
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var city in Model)
+                        {
+                            
+                            <div class="col">
+                                <div class="card" style="width: 15rem;">
+                                    <img src="@Url.Content($"~/images/{city.CityName}.png")" class="card-img-top" alt="City Image" style="width: 15rem;">
+                                    <div class="card-body">
+                                        <a href="@Url.Action("ListAdverts", "ListAdverts", new { cityName = city.CityName })" class="btn btn-outline-white btn-lg fw-bold">@city.CityName</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                    }    
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
 </body>
 

@@ -23,6 +23,10 @@
     <ProjectReference Include="..\RealEstate.Service\RealEstate.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 
 
 

@@ -3,24 +3,35 @@ using RealEstate.Service;
 using RealEstate.DataAccess.Models;
 using System.Diagnostics;
 
+
 namespace RealEstate.Web.Controllers
 {
     public class HomeController : Controller
     {
-      /*  private readonly ILogger<HomeController> _logger;
-        private readonly ILoginService _loginService;
+        /*  private readonly ILogger<HomeController> _logger;
+          private readonly ILoginService _loginService;
 
-        public HomeController(ILoginService loginService)
+          public HomeController(ILoginService loginService)
+          {
+              _loginService = loginService;
+          }
+         */
+        private readonly IAllCitiesService _allCitiesService;
+
+        public HomeController(IAllCitiesService allCitiesService)
         {
-            _loginService = loginService;
+            _allCitiesService = allCitiesService;
         }
-       */
+
         public IActionResult Index()
         {
             var userEmail = HttpContext.Session.GetString("UserEmail");
             ViewBag.UserEmail = userEmail;
             ViewData["ActivePage"] = "Home";
-            return View();
+
+            var cities = _allCitiesService.GetAllCities();
+
+            return View(cities);
         }
 
         [HttpGet]
@@ -29,25 +40,6 @@ namespace RealEstate.Web.Controllers
             return View();
         }
 
-        /* public IActionResult Privacy()
-         {
-             return View();
-         }
-
-         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-         public IActionResult Error()
-         {
-             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-         }*/
-
-
-
-        /*[HttpPost]
-        public IActionResult Login([FromForm] LoginCredentialModel loginModel)
-        {
-            var result = _loginService.Detail(loginModel.Email, loginModel.Password);
-
-            return View();
-        }*/
+        
     }
 }

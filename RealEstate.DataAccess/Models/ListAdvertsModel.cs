@@ -23,7 +23,7 @@ namespace RealEstate.DataAccess.Models
         public int DoorNumber { get; set; }
         public string Country { get; set; }
         public string DistrictName { get; set; }
-        //public string PaidAdvertChoice { get; set; }
+        public string? PaidAdvertChoice { get; set; }
 
     }
 }

@@ -19,11 +19,18 @@ namespace RealEstate.Web.Controllers
             return View("~/Views/Shared/ContactApplication.cshtml");
         }
 
+        [HttpGet("company-contact-application")]
+        public IActionResult CompanyContactApplication()
+        {
+            ViewData["ActivePage"] = "CompanyContactApplication";
+            return View("~/Views/CompanyContactApplication.cshtml");
+        }
+
         [HttpPost("contact-application")]
         public async Task<IActionResult> ContactApplication(ContactApplicationModel model)
         {
-            /*var userEmail = HttpContext.Session.GetString("UserEmail");
-            ViewBag.UserEmail = userEmail;*/ 
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
 
             if (ModelState.IsValid)
             {
@@ -39,6 +46,27 @@ namespace RealEstate.Web.Controllers
 
             }
             return View("~/Views/Shared/ContactApplication.cshtml");
+        }
+
+        [HttpPost("company-contact-application")]
+        public async Task<IActionResult> CompanyContactApplication(CompanyContactApplicationModel model)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+
+            if (ModelState.IsValid)
+            {
+                var result = await _contactApplicationService.AddCompanyContactApplication(model);
+                if (result.success)
+                {
+                    ViewBag.SuccessMessage = result.message;
+                }
+                else 
+                { 
+                    ViewBag.ErrorMessage = result.message;
+                }
+            }
+            return View("~/Views/CompanyContactApplication.cshtml", model);
         }
     }
 }

@@ -53,7 +53,7 @@
                         @if (ViewBag.UserEmail == null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Kurumsal Üyelik</a>
+                                <a class="nav-link" href="/company-contact-application">Kurumsal Üyelik</a>
                             </li>
                         }
                     </ul>
@@ -69,7 +69,10 @@
                     else
                     {
                         <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/Account/Login" role="button" style="background-color: green !important;">İlan Ver</a>
-                        <a class="ms-1 btn text-white fw-bold rounded-pill" id="loginButton" href="/Account/Login" role="button" style="color: black;">Giriş Yap / Üye Ol</a>
+                    <a class="ms-1 btn text-white fw-bold rounded-pill d-flex align-items-center" id="loginButton" href="/Account/Login" role="button" style="color: black;">
+                        <i class="bi bi-person-circle me-2"></i>
+                        Giriş Yap / Üye Ol
+                    </a>
 
                     }
 

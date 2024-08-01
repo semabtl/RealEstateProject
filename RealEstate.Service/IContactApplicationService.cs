@@ -10,5 +10,6 @@ namespace RealEstate.Service
     public interface IContactApplicationService
     {
         Task<(bool success, string message)> AddContactApplication(ContactApplicationModel model);
+        Task<(bool success, string message)> AddCompanyContactApplication(CompanyContactApplicationModel model);
     }
 }

@@ -1,0 +1,53 @@
+﻿@model CompanyContactApplicationModel
+@{
+    ViewBag.Title = "Kurumsal Üyelik Başvurusu";
+}
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-4 p-3 mt-3 mb-3"> 
+            <form asp-action="CompanyContactApplication" method="post">
+                <p style="text-align: center;" class="fw-bold fs-3 mb-3">Kurumsal Üyelik Başvuru Formu</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+                {
+                    <div class="alert alert-success">
+                        @ViewBag.SuccessMessage
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+                <div class="mb-3">
+                    <input class="form-control" id="InputNameOfCompanyOfficial" name="NameOfCompanyOfficial" placeholder="Yetkili Ad Soyad *">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputPhoneNumber" name="PhoneNumber" placeholder="Yetkili Telefon Numarası *">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCompanyName" name="CompanyName" placeholder="Şirket Adı *">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputCity" name="CityName" placeholder="Şirket İli *">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" id="InputDistrict" name="DistrictName" placeholder="Şirket İlçesi *">
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Kişisel Verilerin İşlenmesiyle İlgili Aydınlatma Metnini okudum ve anladım.
+                    </label>
+                </div>
+
+                <div class="container d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn text-white fw-bold mx-auto" style="background-color: limegreen !important;">Başvuru Yap</button>
+                </div>
+            </form>
+            </div>
+   </div>
+</body>

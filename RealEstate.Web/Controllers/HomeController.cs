@@ -17,10 +17,11 @@ namespace RealEstate.Web.Controllers
           }
          */
         private readonly IAllCitiesService _allCitiesService;
-
-        public HomeController(IAllCitiesService allCitiesService)
+        private readonly IPaidAdvertsHomepageService _paidAdvertsHomepageService;
+        public HomeController(IAllCitiesService allCitiesService, IPaidAdvertsHomepageService paidAdvertsHomepageService)
         {
             _allCitiesService = allCitiesService;
+            _paidAdvertsHomepageService = paidAdvertsHomepageService;
         }
 
         public IActionResult Index()
@@ -29,9 +30,14 @@ namespace RealEstate.Web.Controllers
             ViewBag.UserEmail = userEmail;
             ViewData["ActivePage"] = "Home";
 
-            var cities = _allCitiesService.GetAllCities();
+            HomepageViewModel model = new HomepageViewModel();
+            model.AllCities = _allCitiesService.GetAllCities();
+            model.PaidHomepageAdverts = _paidAdvertsHomepageService.GetFeaturedAdverts();
 
-            return View(cities);
+
+           // var cities = _allCitiesService.GetAllCities();
+
+            return View(model);
         }
 
         [HttpGet]

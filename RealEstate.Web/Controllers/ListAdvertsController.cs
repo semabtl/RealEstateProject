@@ -28,17 +28,6 @@ namespace RealEstate.Web.Controllers
             return View("~/Views/ListAdverts.cshtml", result);
         
         }
-
-        [HttpGet("get-advert-by-id")]
-        public IActionResult GetAdvert(int advertID)
-        {
-            var userEmail = HttpContext.Session.GetString("UserEmail");
-            ViewBag.UserEmail = userEmail;
-            
-            var result = _listAdvertsService.GetAdvertByID(advertID);
-            return View("~/Views/AdvertDetails.cshtml", result);
-             
-        }
         
     }
 }

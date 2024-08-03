@@ -11,8 +11,7 @@ namespace RealEstate.Entity
         public int AdvertID { get; set; }
         public int? AddressID { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
-        
+        public string Description { get; set; }   
         public ListingType ListingType { get; set; }
         public PropertyType PropertyType { get; set; }
         public float SquareMeters { get; set; }

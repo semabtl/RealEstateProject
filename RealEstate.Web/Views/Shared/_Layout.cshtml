@@ -53,13 +53,21 @@
                         @if (ViewBag.UserEmail == null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="/company-contact-application">Kurumsal Üyelik</a>
+                                <a class="nav-link @((string)ViewData["ActivePage"] == "CompanyContactApplication" ? "active" : "")" href="/company-contact-application">Kurumsal Üyelik</a>
                             </li>
                         }
-                    </ul>
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="" role="button">
+                                    <i class="bi bi-heart me-1"></i>
+                                    Favorilerim
+                                </a>
+                            </li>
+                        }
+                </ul>
                     @if (ViewBag.UserEmail != null)
                     {
-                        
                         <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/advertise" role="button" style="background-color: green !important;">İlan Ver</a>
                         
                         <form method="post" action="/Account/Logout" style="display:inline;">
@@ -156,6 +164,6 @@
         
     </footer>
     
-
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

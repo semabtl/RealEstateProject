@@ -35,8 +35,6 @@ namespace RealEstate.Web.Controllers
             model.PaidHomepageAdverts = _paidAdvertsHomepageService.GetFeaturedAdverts();
 
 
-           // var cities = _allCitiesService.GetAllCities();
-
             return View(model);
         }
 

@@ -44,7 +44,8 @@ namespace RealEstate.Service
                              DoorNumber = address.DoorNumber,
                              Country = address.Country,
                              DistrictName = district.DistrictName,
-                             PaidAdvertChoice = paidAdvertPrice != null ? paidAdvertPrice.Title : null
+                             PaidAdvertChoice = paidAdvertPrice != null ? paidAdvertPrice.Title : null,
+                             Status = advert.Status
                          };
             return result.ToList();
 

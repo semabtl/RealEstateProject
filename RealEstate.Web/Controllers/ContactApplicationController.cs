@@ -28,7 +28,7 @@ namespace RealEstate.Web.Controllers
 
         [HttpPost("contact-application")]
         public async Task<IActionResult> ContactApplication(ContactApplicationModel model)
-        {
+        {           
             var userEmail = HttpContext.Session.GetString("UserEmail");
             ViewBag.UserEmail = userEmail;
 
@@ -51,6 +51,7 @@ namespace RealEstate.Web.Controllers
         [HttpPost("company-contact-application")]
         public async Task<IActionResult> CompanyContactApplication(CompanyContactApplicationModel model)
         {
+            ViewData["ActivePage"] = "CompanyContactApplication";
             var userEmail = HttpContext.Session.GetString("UserEmail");
             ViewBag.UserEmail = userEmail;
 

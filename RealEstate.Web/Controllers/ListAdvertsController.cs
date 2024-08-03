@@ -22,7 +22,7 @@ namespace RealEstate.Web.Controllers
         {
             var userEmail = HttpContext.Session.GetString("UserEmail");
             ViewBag.UserEmail = userEmail;
-            
+
             ViewBag.CityName = cityName;
             var result = _listAdvertsService.FindAdvertsByCity(cityName);
             return View("~/Views/ListAdverts.cshtml", result);

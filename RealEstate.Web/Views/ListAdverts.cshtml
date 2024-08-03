@@ -10,16 +10,37 @@
         {
             foreach (var advert in Model)
             {
+                if (advert.Status == RealEstate.Entity.Status.Passive)
+                {
+                    continue;
+                }
                 var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
-                var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "border: 4px solid green !important;" : "";
-                <div class="@cardClass d-flex flex-row mb-3" style="max-height: 13rem; @cardStyle">
+                var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
+                <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
                     <img src="@Url.Content($"~/images/{ViewBag.CityName}.png")" class="card-img-start" alt="..." style="width: 14rem;">
                     <div class="card-body text-start">
-                        <h5 class="card-title">@advert.Title</h5>
-                        <p class="card-text">@advert.Description</p>
-                        <p class="card-text fs-5">@advert.Price TL</p>
+                       
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="card-title">@advert.Title</h5>
+                                <p class="card-text">@advert.Description</p>
+                                <div>
+                                    <i class="bi bi-geo-alt"></i> @advert.DistrictName
+                                </div>
 
-                        <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn-sm">İncele</a>
+                                <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn mt-4">İncele</a>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-end mt-0">
+                                    <a class="btn text-center favourite-button" href="" role="button" data-advert-id="@advert.AdvertID">
+                                        <i class="bi bi-heart me-1"></i>
+                                    </a>
+
+                                </div>
+                                <p class="card-text text-center mt-4 fs-5">@advert.Price TL</p>
+                                
+                            </div>
+                        </div>   
                     </div>
                 </div>
             }
@@ -33,4 +54,36 @@
 
 
     </div>
+
+    @section Scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".favorite-button").click(function (e) {
+                    e.preventDefault();
+
+                    var button = $(this);
+                    var advertID = button.data("advert-id");
+
+                    $.ajax({
+                        url: '@Url.Action("AddToFavourites", "AddToFavourites")',
+                        type: 'POST',
+                        data: { advertID: advertID },
+                        success: function (response) {
+                            if (response.success) {
+                                button.addClass('btn-danger').removeClass('btn-outline-dark');
+                                button.html('<i class="bi bi-heart-fill me-1"></i>');
+                            }
+                            else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function () {
+                            alert("Bir hata oluştu.");
+                        }
+                    });
+                });
+            });
+        </script>
+    }
 </body>

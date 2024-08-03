@@ -20,9 +20,10 @@
                                         <div class="card-body text-center">
                                             <h5 class="card-title">@advert.Title</h5>
                                             <p class="card-text">@advert.Description</p>
+                                            <p class="card-text">@advert.DistrictName / @advert.CityName</p>
                                             <p class="card-text fs-5">@advert.Price TL</p>
 
-                                            <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn-sm">İncele</a>
+                                            <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark">İncele</a>
                                         </div>
                                     </div>
                                 </div>

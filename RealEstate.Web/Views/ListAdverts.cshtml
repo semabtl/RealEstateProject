@@ -6,6 +6,19 @@
 <body>
     <h4 class="mt-5 mb-5">@ViewBag.CityName İlindeki Tüm İlanlar</h4>
     <div class="container text-center">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
          @if (Model != null && Model.Any())
         {
             foreach (var advert in Model)
@@ -32,10 +45,27 @@
                             </div>
                             <div class="col-6">
                                 <div class="text-end mt-0">
-                                    <a class="btn text-center favourite-button" href="" role="button" data-advert-id="@advert.AdvertID">
-                                        <i class="bi bi-heart me-1"></i>
-                                    </a>
+                                    
+                                    @if (advert.IsFavourite)
+                                    {
+                                        <a class="btn text-center" href="" role="button" style="color:red;">
+                                            <i class="bi bi-heart-fill me-1"></i>
+                                        </a>
+                                    }
+                                    
+                                    else
+                                    {
+                                        <!--<a class="btn text-center" href="@Url.Action("AddToFavourites", "AddToFavourites", new { advertID = advert.AdvertID, cityName = advert.CityName})" role="button">
+                                            <i class="bi bi-heart me-1"></i>
+                                        </a> -->
+                                        
 
+                                        <form id="favouriteForm" method="post" action="@Url.Action("AddToFavourites", "AddToFavourites", new { advertID = advert.AdvertID, cityName = advert.CityName })">
+                                            <button type="submit" class="btn text-center" role="button">
+                                                <i class="bi bi-heart me-1"></i>
+                                            </button>
+                                        </form>
+                                    }
                                 </div>
                                 <p class="card-text text-center mt-4 fs-5">@advert.Price TL</p>
                                 
@@ -51,39 +81,31 @@
             
         }
 
-
-
     </div>
-
     @section Scripts {
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $(".favorite-button").click(function (e) {
-                    e.preventDefault();
+            // Sayfanın kaydırma konumunu yerel depolamada sakla
+            function saveScrollPosition() {
+                localStorage.setItem('scrollPosition', window.scrollY);
+            }
 
-                    var button = $(this);
-                    var advertID = button.data("advert-id");
+            // Saklanan kaydırma konumunu geri yükle
+            function loadScrollPosition() {
+                const scrollPosition = localStorage.getItem('scrollPosition');
+                if (scrollPosition) {
+                    window.scrollTo(0, parseInt(scrollPosition, 10));
+                    localStorage.removeItem('scrollPosition');
+                }
+            }
 
-                    $.ajax({
-                        url: '@Url.Action("AddToFavourites", "AddToFavourites")',
-                        type: 'POST',
-                        data: { advertID: advertID },
-                        success: function (response) {
-                            if (response.success) {
-                                button.addClass('btn-danger').removeClass('btn-outline-dark');
-                                button.html('<i class="bi bi-heart-fill me-1"></i>');
-                            }
-                            else {
-                                alert(response.message);
-                            }
-                        },
-                        error: function () {
-                            alert("Bir hata oluştu.");
-                        }
-                    });
-                });
+            document.addEventListener('DOMContentLoaded', function () {
+                // Form gönderildiğinde kaydırma konumunu sakla
+                document.getElementById('favouriteForm').addEventListener('submit', saveScrollPosition);
+
+                // Sayfa yüklendiğinde kaydırma konumunu geri yükle
+                loadScrollPosition();
             });
         </script>
     }
+
 </body>

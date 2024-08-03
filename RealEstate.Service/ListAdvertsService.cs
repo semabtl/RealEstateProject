@@ -18,8 +18,18 @@ namespace RealEstate.Service
             _context = context;
         }
 
-       public IEnumerable<ListAdvertsModel> FindAdvertsByCity(string cityName)
+       public IEnumerable<ListAdvertsModel> FindAdvertsByCity(string userEmail, string cityName)
        {
+            var person = _context.Persons.FirstOrDefault(p => p.Email == userEmail);
+            int? personID;
+            if(person == null)
+            {
+                personID = null;
+            }
+            else{
+                personID = person.PersonID;
+            }
+            
             var result = from advert in _context.Adverts
                          join address in _context.Addresses on advert.AddressID equals address.AddressID
                          join city in _context.Cities on address.CityID equals city.CityID
@@ -45,7 +55,8 @@ namespace RealEstate.Service
                              Country = address.Country,
                              DistrictName = district.DistrictName,
                              PaidAdvertChoice = paidAdvertPrice != null ? paidAdvertPrice.Title : null,
-                             Status = advert.Status
+                             Status = advert.Status,
+                             IsFavourite = personID.HasValue && _context.Favourites.Any(f => f.AdvertID == advert.AdvertID && f.PersonID == personID)
                          };
             return result.ToList();
 

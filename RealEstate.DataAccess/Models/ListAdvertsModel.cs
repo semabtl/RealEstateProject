@@ -25,6 +25,7 @@ namespace RealEstate.DataAccess.Models
         public string DistrictName { get; set; }
         public string? PaidAdvertChoice { get; set; }
         public Status Status { get; set; }
+        public bool IsFavourite { get; set; }
 
     }
 }

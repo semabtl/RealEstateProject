@@ -10,7 +10,7 @@ namespace RealEstate.Service
 {
     public interface IListAdvertsService
     {
-        IEnumerable<ListAdvertsModel> FindAdvertsByCity(string cityName);
+        IEnumerable<ListAdvertsModel> FindAdvertsByCity(string userEmail, string cityName);
         ListAdvertsModel GetAdvertByID(int advertID);
     }
 }

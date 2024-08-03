@@ -12,17 +12,26 @@ namespace RealEstate.Web.Controllers
         }
 
         [HttpPost("add-to-favourites")]
-        public async Task<IActionResult> AddToFavourites(int advertID)
+        public async Task<IActionResult> AddToFavourites(int advertID, string cityName)
         {
             var userEmail = HttpContext.Session.GetString("UserEmail");
             ViewBag.UserEmail = userEmail;
 
+            if(userEmail == null)
+            {
+                return RedirectToAction("Login","Account");
+            }
             var succeed = await _addToFavouritesService.AddNewFavourite(userEmail, advertID);
             if (succeed)
             {
-                return Json(new { success = true });
+                TempData["SuccessMessage"] = "Favorilere eklendi!";
             }
-            return Json(new { success = false });
+            else
+            {
+                TempData["ErrorMessage"] = "Favorilere eklenemedi.";
+            }
+            return RedirectToAction("ListAdverts", "ListAdverts", new { cityName = cityName });
+           
         }
     }
 }

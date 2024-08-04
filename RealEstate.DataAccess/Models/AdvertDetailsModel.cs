@@ -25,6 +25,7 @@ namespace RealEstate.DataAccess.Models
         public string AdvertiserSurname { get; set; }
         public string AdvertiserPhoneNumber { get; set; }
         public string? AdvertiserCompanyName { get; set; }
-        
+        public List<string>? ImagePaths { get; set; }
+
     }
 }

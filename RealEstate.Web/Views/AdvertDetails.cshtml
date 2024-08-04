@@ -13,14 +13,28 @@
             <div class="col-6">
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="~/images/Ankara.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="~/images/İstanbul.png" class="d-block w-100" alt="...">
-                        </div>
-                       
+                        
+                        @if (Model.ImagePaths != null && Model.ImagePaths.Any())
+                        {
+                            for (int i = 0; i < Model.ImagePaths.Count; i++)
+                            {
+                                var imagePath = Model.ImagePaths[i];
+                                var activeClass = i == 0 ? "active" : "";
+                                <div class="carousel-item @activeClass">
+                                    <img src="@Url.Content(imagePath)" class="d-block w-100" alt="Advert Image">
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="carousel-item active">
+                                <img src="~/images/default-image.png" class="d-block w-100" alt="No Image Available">
+                            </div>
+                        }
+
                     </div>
+
+                    <!--Fotoğrafların değiştitrilebilmesi için ileri ve geri butonları-->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -30,16 +44,19 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+
+                <!--Tüm fotoğraflar altta küçük küçük görünür ve tıklandığında büyük olan kısımda gösterilir.-->
                 <div class="row mt-3">
-                    <div class="col-2">
-                        <img src="~/images/Ankara.png" class="img-thumbnail" alt="...">
-                    </div>
-                    <div class="col-2">
-                        <img src="~/images/Ankara.png" class="img-thumbnail" alt="...">
-                    </div>
-                    <div class="col-2">
-                        <img src="~/images/Ankara.png" class="img-thumbnail" alt="...">
-                    </div>
+                    @if (Model.ImagePaths != null && Model.ImagePaths.Any())
+                    {
+                        for (int i = 0; i < Model.ImagePaths.Count; i++)
+                        {
+                            var imagePath = Model.ImagePaths[i];
+                            <div class="col-3 mb-2">
+                                <img src="@Url.Content(imagePath)" class="img-thumbnail clickable-thumbnail" data-bs-target="#carouselExample" data-bs-slide-to="@i" alt="Advert Image" style="cursor: pointer;">
+                            </div>
+                        }
+                    }
                 </div>    
             </div>
             <!--İlan detaylarının bulunduğu sütun-->
@@ -49,6 +66,7 @@
                         <p class="card-text fs-5 fw-bold">@Model.Price TL</p>
                         <p class="card-text">@Model.Description</p>
                         
+                        <!--İlanı veren bir şirket hesabı ise farklı, kişisel hesap ise farklı bir görünüm oluşturulur-->
                         @if (Model.AdvertiserCompanyName != null)
                         {
 
@@ -92,12 +110,25 @@
                                 Favorilere Ekle
                             </a>
                         </div>
-
                            
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var thumbnails = document.querySelectorAll('.clickable-thumbnail');
+            var carousel = document.getElementById('carouselExample');
+            var carouselInstance = new bootstrap.Carousel(carousel);
+
+            thumbnails.forEach(function (thumbnail) {
+                thumbnail.addEventListener('click', function () {
+                    var slideTo = this.getAttribute('data-bs-slide-to');
+                    carouselInstance.to(slideTo);
+                });
+            });
+        });
+    </script>
+
 </body>

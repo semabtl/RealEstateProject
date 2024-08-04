@@ -58,7 +58,21 @@ namespace RealEstate.Service
                              Status = advert.Status,
                              IsFavourite = personID.HasValue && _context.Favourites.Any(f => f.AdvertID == advert.AdvertID && f.PersonID == personID)
                          };
-            return result.ToList();
+
+            var adverts = result.ToList();
+
+            foreach (var advert in adverts)
+            {
+                var firstImagePath = _context.Images
+                                           .Where(img => img.AdvertID == advert.AdvertID)
+                                           .OrderBy(img => img.ImageID)
+                                           .Select(img => img.PathToImage)
+                                           .FirstOrDefault();
+
+                advert.PathToImage = firstImagePath;
+            }
+
+            return adverts;
 
         }
         public ListAdvertsModel GetAdvertByID(int advertID)

@@ -8,8 +8,8 @@ namespace RealEstate.DataAccess.Models
 {
     public class FavouritesModel
     {
-        public int AdvertID { get; set; }
-        public int PersonID { get; set; }
-
+        public string UserEmail { get; set; }
+        public int AdvertID { get; set; } 
+        public string CityName { get; set; } 
     }
 }

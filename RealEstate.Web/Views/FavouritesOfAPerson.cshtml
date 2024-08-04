@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ListAdvertsModel>
+
+@{
+    ViewBag.Title = "Favorilerim";
+}
+<body>
+        <div class="container text-center mt-5">
+        <h4 class="mb-5">Favori İlanlarım</h4>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var advert in Model)
+                {
+                    if (advert.Status == RealEstate.Entity.Status.Passive)
+                    {
+                        continue;
+                    }
+                    var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
+                    var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
+                    <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
+                        <img src="@Url.Content($"~/images/İstanbul.png")" class="card-img-start" alt="..." style="width: 14rem;">
+                        <div class="card-body text-start">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title">@advert.Title</h5>
+                                    <p class="card-text">@advert.Description</p>
+                                    <div>
+                                        <i class="bi bi-geo-alt"></i> @advert.DistrictName
+                                    </div>
+
+                                    <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn mt-4">İncele</a>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-end mt-0">
+
+                                        @if (advert.IsFavourite)
+                                        {
+                                            <a class="btn text-center" href="" role="button" style="color:red;">
+                                                <i class="bi bi-heart-fill me-1"></i>
+                                            </a>
+                                        }
+
+                                    </div>
+                                    <p class="card-text text-center mt-4 fs-5">@advert.Price TL</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="alert text-danger text-start fw-bold fs-5">Favori ilan bulunmamaktadır.</p>
+
+            }
+
+        </div>
+   
+</body>

@@ -65,7 +65,7 @@ namespace RealEstate.Service
                     {
                         return (false, "Bu e-posta adresi kullanılmaktadır.");
                     }
-                    //person, company, address sırasyla ekle.
+                    
                     
                     //Kişi, kişiler tablosuna eklenir.
                     var personEntity = new Person

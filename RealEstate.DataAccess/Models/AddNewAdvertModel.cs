@@ -1,4 +1,5 @@
-﻿using RealEstate.Entity;
+﻿using Microsoft.AspNetCore.Http;
+using RealEstate.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,5 +38,9 @@ namespace RealEstate.DataAccess.Models
         public string DistrictName { get; set; }
 
         public string PaidAdvertChoice { get; set; }
+
+        public List<string>? PhotoPaths { get; set; }
+
+        public List<IFormFile> Files { get; set; }
     }
 }

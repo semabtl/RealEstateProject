@@ -31,7 +31,8 @@ namespace RealEstate.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                
+                model.PhotoPaths = SavePhotos(model.Files);
+
                 var result = await _addAdvertService.AddAdvertAsync(model, userEmail);
                 if (result.success)
                 {
@@ -64,7 +65,6 @@ namespace RealEstate.Web.Controllers
                 if (result.success)
                 {
                     ViewBag.SuccessMessage = result.message;
-                    //return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -73,6 +73,41 @@ namespace RealEstate.Web.Controllers
             }
             
             return View("~/Views/AddNewAdvert.cshtml");
+        }
+
+
+        //Fotoğraf kaydı için metot
+        public List<string> SavePhotos(List<IFormFile> files)
+        {
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
+
+            var photoPaths = new List<string>();
+
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    //Fotoğraf adı için unique değer oluşturulur.
+                    Guid guid = Guid.NewGuid();
+                    var filePath = Path.Combine(uploadPath, guid.ToString() + ".png");
+
+                    // Fotoğraf kaydedilir.
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyToAsync(stream);
+                    }
+                    
+                    //Fotoğrafın yolu listeye eklenir.
+                    photoPaths.Add($"~/uploads/"+ guid.ToString() + ".png");
+                }
+            }
+
+            return photoPaths;
         }
     }
 }

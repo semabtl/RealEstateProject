@@ -30,7 +30,15 @@
                 var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
                 var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
                 <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
-                    <img src="@Url.Content($"~/images/{ViewBag.CityName}.png")" class="card-img-start" alt="..." style="width: 14rem;">
+                    @if(advert.PathToImage != null)
+                    {
+                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem;">
+                    }
+                    else
+                    {
+                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem;">
+                    }
+                    
                     <div class="card-body text-start">
                        
                         <div class="row">
@@ -55,12 +63,10 @@
                                     
                                     else
                                     {
-                                        <!--<a class="btn text-center" href="@Url.Action("AddToFavourites", "AddToFavourites", new { advertID = advert.AdvertID, cityName = advert.CityName})" role="button">
-                                            <i class="bi bi-heart me-1"></i>
-                                        </a> -->
                                         
-
-                                        <form id="favouriteForm" method="post" action="@Url.Action("AddToFavourites", "AddToFavourites", new { advertID = advert.AdvertID, cityName = advert.CityName })">
+                                        <form id="favouriteForm" method="post" action="@Url.Action("AddToFavourites", "Favourites")">
+                                            <input type="hidden" name="AdvertID" value="@advert.AdvertID" />
+                                            <input type="hidden" name="CityName" value="@advert.CityName" />
                                             <button type="submit" class="btn text-center" role="button">
                                                 <i class="bi bi-heart me-1"></i>
                                             </button>
@@ -82,30 +88,5 @@
         }
 
     </div>
-    @section Scripts {
-        <script>
-            // Sayfanın kaydırma konumunu yerel depolamada sakla
-            function saveScrollPosition() {
-                localStorage.setItem('scrollPosition', window.scrollY);
-            }
-
-            // Saklanan kaydırma konumunu geri yükle
-            function loadScrollPosition() {
-                const scrollPosition = localStorage.getItem('scrollPosition');
-                if (scrollPosition) {
-                    window.scrollTo(0, parseInt(scrollPosition, 10));
-                    localStorage.removeItem('scrollPosition');
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                // Form gönderildiğinde kaydırma konumunu sakla
-                document.getElementById('favouriteForm').addEventListener('submit', saveScrollPosition);
-
-                // Sayfa yüklendiğinde kaydırma konumunu geri yükle
-                loadScrollPosition();
-            });
-        </script>
-    }
 
 </body>

@@ -51,6 +51,15 @@ namespace RealEstate.Service
                                   AdvertiserPhoneNumber = person.PhoneNumber,
                                   AdvertiserCompanyName = company != null ? company.CompanyName : null
                               }).FirstOrDefault();
+
+                //İlana ait görseller ayrıca alınır.
+                if (result != null)
+                {
+                    result.ImagePaths = _context.Images
+                                               .Where(img => img.AdvertID == advertID)
+                                               .Select(img => img.PathToImage)
+                                               .ToList();                   
+                }
             }
             catch (Exception)
             {

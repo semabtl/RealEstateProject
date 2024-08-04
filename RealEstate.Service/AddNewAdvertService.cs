@@ -74,9 +74,25 @@ namespace RealEstate.Service
                     _context.Addresses.Add(addressEntity);
                     await _context.SaveChangesAsync();
 
+                    //İlanın adres ID değeri güncellenir.
                     advertEntity.AddressID = addressEntity.AddressID;
                     await _context.SaveChangesAsync();
 
+                    //İlana ait görsel varsa veritabanına görsellerin yolu kaydedilir.
+                    if(model.PhotoPaths != null)
+                    {
+                        foreach (var photoPath in model.PhotoPaths)
+                        {
+                            var imageEntity = new Image
+                            {
+                                AdvertID = advertEntity.AdvertID,
+                                PathToImage = photoPath
+                            };
+                            _context.Images.Add(imageEntity);
+                        }
+                        await _context.SaveChangesAsync();
+                    }
+                   
                     await transaction.CommitAsync();
                     return (true, "Kayıt başarıyla tamamlandı.", advertEntity.AdvertID);
                 }
@@ -154,5 +170,3 @@ namespace RealEstate.Service
 
     }
 }
-//iki sssyrı metod olsun diğerinde saydece payment olsun, adres olmasın.
-//ücretsizse aktif 1 yap. ücretliyse 0 olsun. ödeme yapınca 1'e çevirirsin.

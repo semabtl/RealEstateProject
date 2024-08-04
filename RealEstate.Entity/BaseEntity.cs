@@ -8,7 +8,7 @@ namespace RealEstate.Entity
 {
     public class BaseEntity
     {
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime? UpdateDate { get; set; }
         public bool IsDeleted { get; set; } = false;
     }

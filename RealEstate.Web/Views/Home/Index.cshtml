@@ -15,7 +15,15 @@
                         {
                             <div class="col">
                                 <div class="card" style="width: 15rem;">
-                                    <img src="@Url.Content($"~/images/İstanbul.png")" class="card-img-top" alt="City Image" style="width: 15rem;">
+                                    @if (advert.PathToImage != null)
+                                    {
+                                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 15rem;">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 15rem;">
+                                    }
+                                    
                                     <div class="card-body">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">@advert.Title</h5>

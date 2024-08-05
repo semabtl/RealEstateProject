@@ -27,11 +27,18 @@ namespace RealEstate.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool userFound = _loginService.CheckPerson(model.Email, model.Password);
+                bool userFound = _loginService.CheckPerson(model);
 
                 if (userFound)
                 {
                     HttpContext.Session.SetString("UserEmail", model.Email);
+
+                    var Role = _loginService.FindUserRole(model);
+                    if(Role == Entity.Role.Admin)
+                    {
+                        return RedirectToAction("AdminHomePage", "Admin");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else

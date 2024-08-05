@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RealEstate.DataAccess.Models;
 using RealEstate.Entity;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace RealEstate.Service
 {
     public interface ILoginService
     {
-
         bool Delete(int personId);
 
-        bool CheckPerson(string email, string password);
+        bool CheckPerson(LoginModel model);
+        Role FindUserRole(LoginModel model);
     }
 }

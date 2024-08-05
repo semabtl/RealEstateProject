@@ -14,18 +14,35 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <i class="bi bi-houses" style="font-size: 32px;"></i>
-                <a class="navbar-brand fw-bold mx-3" href="/">B-Emlak</a>
+                @if (ViewBag.UserRole == RealEstate.Entity.Role.Admin)
+                {
+                    <a class="navbar-brand fw-bold mx-3" href="/admin/admin-homepage">B-Emlak</a>
+                }
+                else
+                {
+                    <a class="navbar-brand fw-bold mx-3" href="/">B-Emlak</a>
+                }
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                        
+                    @if (ViewBag.UserRole == RealEstate.Entity.Role.Admin)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @((string)ViewData["ActivePage"] == "Home" ? "active" : "")" aria-current="page" href="/admin/admin-homepage">Anasayfa</a>
+                        </li>
+                    }
+                    else
+                    {
                         <li class="nav-item">
                             <a class="nav-link @((string)ViewData["ActivePage"] == "Home" ? "active" : "")" aria-current="page" href="/">Anasayfa</a>
                         </li>
-
-                        <li class="nav-item dropdown">
+                    }
+                    <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Satılık
                             </a>
@@ -58,18 +75,25 @@
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/get-all-favourites" role="button">
-                                    <i class="bi bi-heart me-1"></i>
-                                    Favorilerim
-                                </a>
-                            </li>
+                            if (ViewBag.UserRole != RealEstate.Entity.Role.Admin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/get-all-favourites" role="button">
+                                        <i class="bi bi-heart me-1"></i>
+                                        Favorilerim
+                                    </a>
+                                </li>
+                            }
+                            
                         }
                 </ul>
                     @if (ViewBag.UserEmail != null)
                     {
-                        <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/advertise" role="button" style="background-color: green !important;">İlan Ver</a>
-                        
+                        if(ViewBag.UserRole != RealEstate.Entity.Role.Admin)
+                        {
+                            <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/advertise" role="button" style="background-color: green !important;">İlan Ver</a>
+                        }
+                    
                         <form method="post" action="/Account/Logout" style="display:inline;">
                             <button type="submit" class="ms-1 btn text-white fw-bold rounded-pill" id="logoutButton" style="background-color: black !important;"> Çıkış Yap</button>
                         </form>

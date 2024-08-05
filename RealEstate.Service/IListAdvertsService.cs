@@ -11,6 +11,7 @@ namespace RealEstate.Service
     public interface IListAdvertsService
     {
         IEnumerable<ListAdvertsModel> FindAdvertsByCity(string userEmail, string cityName);
-        ListAdvertsModel GetAdvertByID(int advertID);
+        // ListAdvertsModel GetAdvertByID(int advertID);
+        IEnumerable<ListAdvertsModel> ListAllAdverts();
     }
 }

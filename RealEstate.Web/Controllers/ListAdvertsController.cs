@@ -5,11 +5,7 @@ using RealEstate.Service;
 namespace RealEstate.Web.Controllers
 {
     public class ListAdvertsController : Controller
-    {
-        /*public IActionResult Index()
-        {
-            return View();
-        }*/
+    {    
         private readonly IListAdvertsService _listAdvertsService;
 
         public ListAdvertsController(IListAdvertsService listAdvertsService)
@@ -24,7 +20,9 @@ namespace RealEstate.Web.Controllers
             ViewBag.UserEmail = userEmail;
 
             ViewBag.CityName = cityName;
+
             var result = _listAdvertsService.FindAdvertsByCity(userEmail, cityName);
+
             return View("~/Views/ListAdverts.cshtml", result);
         
         }

@@ -5,7 +5,7 @@
 }
 <body>
 
-    <h4 class="mt-5 mb-5">@ViewBag.CityName İlindeki Tüm İlanlar</h4>
+    <h4 class="mt-5 mb-5">Tüm İlanlar</h4>
 
     <div class="container text-center">
         @if (TempData["SuccessMessage"] != null)
@@ -20,7 +20,7 @@
                 @TempData["ErrorMessage"]
             </div>
         }
-         @if (Model != null && Model.Any())
+        @if (Model != null && Model.Any())
         {
             foreach (var advert in Model)
             {
@@ -31,7 +31,7 @@
                 var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
                 var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
                 <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
-                    @if(advert.PathToImage != null)
+                    @if (advert.PathToImage != null)
                     {
                         <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem;">
                     }
@@ -39,9 +39,9 @@
                     {
                         <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem;">
                     }
-                    
+
                     <div class="card-body text-start">
-                       
+
                         <div class="row">
                             <div class="col-6">
                                 <h5 class="card-title">@advert.Title</h5>
@@ -49,43 +49,31 @@
                                 <div>
                                     <i class="bi bi-geo-alt"></i> @advert.DistrictName
                                 </div>
-
+                                
                                 <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn mt-4">İncele</a>
                             </div>
                             <div class="col-6">
                                 <div class="text-end mt-0">
-                                    
-                                    @if (advert.IsFavourite)
-                                    {
-                                        <a class="btn text-center" href="" role="button" style="color:red;">
-                                            <i class="bi bi-heart-fill me-1"></i>
-                                        </a>
-                                    }
-                                    
-                                    else
-                                    {
-                                        
-                                        <form id="favouriteForm" method="post" action="@Url.Action("AddToFavourites", "Favourites")">
-                                            <input type="hidden" name="AdvertID" value="@advert.AdvertID" />
-                                            <input type="hidden" name="CityName" value="@advert.CityName" />
-                                            <button type="submit" class="btn text-center" role="button">
-                                                <i class="bi bi-heart me-1"></i>
-                                            </button>
-                                        </form>
-                                    }
+                                    <form id="deleteForm" method="post" action="@Url.Action("DeleteAnAdvert", "Admin")">
+                                        <input type="hidden" name="AdvertID" value="@advert.AdvertID" />
+                                        <button type="submit" class="btn text-center" role="button" style="color:red;">
+                                            <i class="bi bi-trash3 me-1"></i>
+                                            Sil
+                                        </button>
+                                    </form>
                                 </div>
                                 <p class="card-text text-center mt-4 fs-5">@advert.Price TL</p>
-                                
+
                             </div>
-                        </div>   
+                        </div>
                     </div>
                 </div>
             }
         }
         else
         {
-            <p class="alert text-danger text-start fw-bold fs-5">Seçilen İlde İlan Bulunamadı</p>
-            
+            <p class="alert text-danger text-start fw-bold fs-5">Seçilen İlde İlan bulunamadı</p>
+
         }
     </div>
 

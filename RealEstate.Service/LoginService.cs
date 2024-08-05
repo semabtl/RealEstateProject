@@ -1,4 +1,5 @@
 ﻿using RealEstate.DataAccess.Context;
+using RealEstate.DataAccess.Models;
 using RealEstate.Entity;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,10 @@ namespace RealEstate.Service
             throw new NotImplementedException();
         }
 
-        public bool CheckPerson(string email, string password)
+        public bool CheckPerson(LoginModel model)
         {
-            Person person = (from p in _context.Persons
-                             where p.Email == email && p.Password == password && p.IsDeleted == false
+            Person? person = (from p in _context.Persons
+                             where p.Email == model.Email && p.Password == model.Password && p.IsDeleted == false
                              select p).FirstOrDefault();
 
             if (person != null)
@@ -35,6 +36,21 @@ namespace RealEstate.Service
             }
 
             return false;
+        }
+
+        public Role FindUserRole(LoginModel model)
+        {
+            try
+            {
+                var user = _context.Persons.FirstOrDefault(p => p.Email == model.Email);
+
+                return user.Role;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
+            
         }
 
     }

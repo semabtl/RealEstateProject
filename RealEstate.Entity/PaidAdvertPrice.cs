@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Entity
 {
-    public class PaidAdvertPrice
+    public class PaidAdvertPrice : BaseEntity
     {
         public int ID { get; set; }
         public string Title { get; set; }

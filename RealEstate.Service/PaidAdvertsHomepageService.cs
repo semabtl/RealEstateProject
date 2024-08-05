@@ -27,6 +27,7 @@ namespace RealEstate.Service
                          join district in _context.Districts on address.DistrictID equals district.DistrictID
                          join paidAdvertPrice in _context.PaidAdvertPrices on paidAdvert.PaidTypeID equals paidAdvertPrice.ID
                          where paidAdvertPrice.Title == "Anasayfada Öne Çıkar"
+                         where advert.IsDeleted == false
                          select new PaidAdvertsHomepageModel
                          {
                              AdvertID = advert.AdvertID,
@@ -36,7 +37,22 @@ namespace RealEstate.Service
                              CityName = city.CityName,
                              DistrictName = district.DistrictName
                          };
-           return result.ToList();
+
+            var adverts = result.ToList();
+
+            //İlana ait görsel kaydı varsa, listede görüntülenmek üzere ilk görselin dosya yolu alınır.
+            foreach (var advert in adverts)
+            {
+                var firstImagePath = _context.Images
+                                           .Where(img => img.AdvertID == advert.AdvertID)
+                                           .OrderBy(img => img.ImageID)
+                                           .Select(img => img.PathToImage)
+                                           .FirstOrDefault();
+
+                advert.PathToImage = firstImagePath;
+            }
+
+            return adverts;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Entity
 {
-    public class Payment
+    public class Payment : BaseEntity
     {
         public int PaymentID { get; set; }
         public int PersonID { get; set; }

@@ -14,6 +14,7 @@ namespace RealEstate.DataAccess.Models
         public double Price { get; set; }
         public string CityName { get; set; }
         public string DistrictName { get; set; }
+        public string? PathToImage { get; set; }
 
     }
 }

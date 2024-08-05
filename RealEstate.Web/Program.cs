@@ -21,6 +21,8 @@ builder.Services.AddScoped<IAllCitiesService, AllCitiesService>();
 builder.Services.AddScoped<IAdvertDetailsService, AdvertDetailsService>();
 builder.Services.AddScoped<IPaidAdvertsHomepageService, PaidAdvertsHomepageService>();
 builder.Services.AddScoped<IFavouritesService, FavouritesService>();
+builder.Services.AddScoped<IDeletionService, DeletionService>();
+builder.Services.AddScoped<IListUsersService, ListUsersService>();
 
 // Configure session
 builder.Services.AddDistributedMemoryCache(); // Session için önbellek kullanýmý

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CompanyContactApplicationModel>
+
+@{
+    ViewBag.Title = "Kurumsal Üyelik Başvuruları";
+}
+<body>
+    <h4 class="mt-5 mb-5">Kurumsal Üyelik / İletişim Başvuruları</h4>
+    <div class="container text-center">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        @if (Model != null && Model.Any())
+        {
+            int i = 1;
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Şirket Adı</th>
+                        <th scope="col">İl</th>
+                        <th scope="col">İlçe</th>
+                        <th scope="col">Yetkili Telefon Numarası</th>
+                        <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var application in Model)
+                    {
+
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td>@application.CompanyName</td>
+                            <td>@application.CityName</td>
+                            <td>@application.DistrictName</td>
+                            <td>@application.PhoneNumber</td>
+         
+                            <td>
+                                <form id="deleteForm" method="post" action="@Url.Action("DeleteCompanyContactApplication", "Admin")">
+                                    <input type="hidden" name="CompanyContactApplicationID" value="@application.CompanyContactApplicationID" />
+                                    <button type="submit" class="btn text-center" role="button" style="color: red;">
+                                        <i class="bi bi-trash3 me-1"></i>
+                                        Sil
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        i++;
+                    }
+
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+

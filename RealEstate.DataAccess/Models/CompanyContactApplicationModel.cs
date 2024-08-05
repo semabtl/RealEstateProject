@@ -23,5 +23,6 @@ namespace RealEstate.DataAccess.Models
 
         [Required(ErrorMessage = "Şirket ilçesi alanı zorunludur.")]
         public string DistrictName { get; set; }
+        public int CompanyContactApplicationID { get; set; }
     }
 }

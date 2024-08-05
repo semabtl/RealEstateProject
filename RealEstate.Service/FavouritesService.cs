@@ -90,8 +90,23 @@ namespace RealEstate.Service
                                     Status = advert.Status,
                                     IsFavourite = true
                              };
-                return result.ToList(); ;
-            
+                
+                var favourites = result.ToList();
+
+                //İlana ait görsel kaydı varsa, listede görüntülenmek üzere ilk görselin dosya yolu alınır.
+                foreach (var advert in favourites)
+                {
+                    var firstImagePath = _context.Images
+                                               .Where(img => img.AdvertID == advert.AdvertID)
+                                               .OrderBy(img => img.ImageID)
+                                               .Select(img => img.PathToImage)
+                                               .FirstOrDefault();
+
+                    advert.PathToImage = firstImagePath;
+                }
+
+                return favourites;
+
             }
             catch(Exception ex)
             {

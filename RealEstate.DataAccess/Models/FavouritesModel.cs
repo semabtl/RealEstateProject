@@ -11,5 +11,6 @@ namespace RealEstate.DataAccess.Models
         public string UserEmail { get; set; }
         public int AdvertID { get; set; } 
         public string CityName { get; set; } 
+        public string PathToImage { get; set; }
     }
 }

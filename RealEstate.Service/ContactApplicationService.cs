@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstate.DataAccess.Context;
+using RealEstate.DataAccess.Migrations;
 using RealEstate.DataAccess.Models;
 using RealEstate.Entity;
 using System;
@@ -78,5 +79,30 @@ namespace RealEstate.Service
             }
 
         }
+
+        public IEnumerable<CompanyContactApplicationModel> ListAllCompanyContactApplications() 
+        {
+            try
+            {
+                var result = from application in _context.CompanyContactApplications
+                             join city in _context.Cities on application.CityID equals city.CityID
+                             join district in _context.Districts on application.DistrictID equals district.DistrictID
+                             where application.IsDeleted == false
+                             select new CompanyContactApplicationModel
+                             {
+                                 CompanyContactApplicationID = application.CompanyContactApplicationID,
+                                 CompanyName = application.CompanyName,
+                                 PhoneNumber = application.PhoneNumber,
+                                 CityName = city.CityName,
+                                 DistrictName = district.DistrictName
+                             };
+                return result.ToList();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
+            
+        }  
     }
 }

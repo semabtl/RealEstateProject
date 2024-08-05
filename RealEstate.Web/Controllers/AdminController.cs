@@ -71,5 +71,24 @@ namespace RealEstate.Web.Controllers
 
             return RedirectToAction("ListAllAdverts", "Admin");
         }
+
+        [HttpPost("delete-company-contact-application")]
+        public IActionResult DeleteCompanyContactApplication(int companyContactApplicationID)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+            ViewBag.UserRole = Entity.Role.Admin;
+
+            var succeed = _deletionService.DeleteCompanyContactApplication(companyContactApplicationID);
+            if (succeed)
+            {
+                TempData["SuccessMessage"] = "Kayıt silindi.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Kayıt silinemedi.";
+            }
+            return RedirectToAction("ListAllCompanyApplications", "ContactApplication");
+        }
     }
 }

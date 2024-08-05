@@ -17,8 +17,16 @@
                     var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
                     var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
                     <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
-                        <img src="@Url.Content($"~/images/İstanbul.png")" class="card-img-start" alt="..." style="width: 14rem;">
-                        <div class="card-body text-start">
+                    @if (advert.PathToImage != null)
+                    {
+                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem;">
+                    }
+                    else
+                    {
+                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem;">
+                    }
+
+                    <div class="card-body text-start">
 
                             <div class="row">
                                 <div class="col-6">

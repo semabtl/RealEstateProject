@@ -9,5 +9,6 @@ namespace RealEstate.Service
     public interface IDeletionService
     {
         bool DeleteAnAdvert(int advertID);
+        bool DeleteCompanyContactApplication(int companyContactApplicationID);
     }
 }

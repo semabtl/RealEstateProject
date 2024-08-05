@@ -33,8 +33,29 @@ namespace RealEstate.Service
             }
             catch(Exception ex)
             {
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
+        }
+
+        public bool DeleteCompanyContactApplication(int companyContactApplicationID) 
+        {
+            try
+            {
+                var application = _context.CompanyContactApplications.FirstOrDefault(a => a.CompanyContactApplicationID == companyContactApplicationID);
+                if (application != null)
+                {
+                    application.IsDeleted = true;
+                    application.UpdateDate = DateTime.Now;
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch( Exception ex ) 
+            { 
+                throw new Exception(ex.Message);
+            }
+           
         }
 
     }

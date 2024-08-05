@@ -11,5 +11,6 @@ namespace RealEstate.Service
     {
         Task<(bool success, string message)> AddContactApplication(ContactApplicationModel model);
         Task<(bool success, string message)> AddCompanyContactApplication(CompanyContactApplicationModel model);
+        IEnumerable<CompanyContactApplicationModel> ListAllCompanyContactApplications();
     }
 }

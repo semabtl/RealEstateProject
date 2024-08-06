@@ -28,6 +28,7 @@ namespace RealEstate.Service
                             where person.IsDeleted == false
                             select new UserInformationModel
                             {
+                                UserID = person.PersonID,
                                 Email = person.Email,
                                 Name = person.Name,
                                 Surname = person.Surname,

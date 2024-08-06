@@ -16,6 +16,9 @@ namespace RealEstate.Web.Controllers
         [HttpGet("contact-application")]
         public IActionResult ContactApplication()
         {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+
             return View("~/Views/Shared/ContactApplication.cshtml");
         }
 
@@ -80,6 +83,18 @@ namespace RealEstate.Web.Controllers
             var applications = _contactApplicationService.ListAllCompanyContactApplications();
 
             return View("~/Views/ListCompanyContactApplications.cshtml", applications);
+        }
+
+        [HttpGet("get-contact-applications")]
+        public IActionResult ListAllContactApplications()
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+            ViewBag.UserRole = Entity.Role.Admin;
+
+            var applications = _contactApplicationService.ListAllContactApplications();
+
+            return View("~/Views/ListContactApplications.cshtml", applications);
         }
 
     }

@@ -90,5 +90,45 @@ namespace RealEstate.Web.Controllers
             }
             return RedirectToAction("ListAllCompanyApplications", "ContactApplication");
         }
+
+        [HttpPost("delete-contact-message")]
+        public IActionResult DeleteContactMessage(int contactApplicationID)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+            ViewBag.UserRole = Entity.Role.Admin;
+
+            var succeed = _deletionService.DeleteContactApplicationMessage(contactApplicationID);
+            if (succeed)
+            {
+                TempData["SuccessMessage"] = "Kayıt silindi.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Kayıt silinemedi.";
+            }
+
+            return RedirectToAction("ListAllContactApplications", "ContactApplication");
+        }
+
+        [HttpPost("delete-user")]
+        public async Task<IActionResult> DeleteUser(int personID)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+            ViewBag.UserRole = Entity.Role.Admin;
+
+            var succeed = await _deletionService.DeleteUser(personID);
+            if (succeed)
+            {
+                TempData["SuccessMessage"] = "Üye kaydı silindi.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Üye kaydı silinemedi.";
+            }
+
+            return RedirectToAction("ListAllUsers", "Admin");
+        }
     }
 }

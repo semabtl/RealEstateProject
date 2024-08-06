@@ -100,9 +100,31 @@ namespace RealEstate.Service
             }
             catch(Exception ex)
             {
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
             
-        }  
+        }
+        
+        public IEnumerable<ContactApplicationModel> ListAllContactApplications()
+        {
+            try
+            {
+                var applications = from application in _context.ContactApplications
+                                   where application.IsDeleted == false
+                                   select new ContactApplicationModel
+                                   {
+                                       ContactApplicationID = application.ContactApplicationID,
+                                       Name = application.Name,
+                                       Surname = application.Surname,
+                                       PhoneNumber= application.PhoneNumber,
+                                       MessageText = application.MessageText
+                                   };
+                return applications.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace RealEstate.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                model.PhotoPaths = SavePhotos(model.Files);
+                model.PhotoPaths = await SavePhotos(model.Files);
 
                 var result = await _addAdvertService.AddAdvertAsync(model, userEmail);
                 if (result.success)
@@ -77,7 +77,7 @@ namespace RealEstate.Web.Controllers
 
 
         //Fotoğraf kaydı için metot
-        public List<string> SavePhotos(List<IFormFile> files)
+        public async Task<List<string>> SavePhotos(List<IFormFile> files)
         {
             var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
 
@@ -99,7 +99,7 @@ namespace RealEstate.Web.Controllers
                     // Fotoğraf kaydedilir.
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        file.CopyToAsync(stream);
+                        await file.CopyToAsync(stream);
                     }
                     
                     //Fotoğrafın yolu listeye eklenir.

@@ -9,6 +9,7 @@ namespace RealEstate.DataAccess.Models
 {
     public class UserInformationModel
     {
+        public int UserID { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

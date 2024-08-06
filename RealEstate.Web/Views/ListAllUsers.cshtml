@@ -71,15 +71,23 @@
                                 <td> </td>
                             }
                             <td>@user.PhoneNumber</td>
-                            <td>
-                                <form id="deleteForm" method="post" action="">
-                                    <!--hidden input satırı ekle.-->
-                                    <button type="submit" class="btn text-center" role="button" style="color: red;">
-                                        <i class="bi bi-trash3 me-1"></i>
-                                        Sil
-                                    </button>
-                                </form>
-                            </td>
+
+                            @if(user.Role == RealEstate.Entity.Role.Admin)
+                            {
+                                <td> </td>
+                            }
+                            else{
+                                <td>
+                                    <form id="deleteForm" method="post" action="@Url.Action("DeleteUser", "Admin")">
+                                        <input type="hidden" name="personID" value="@user.UserID" />
+                                        <button type="submit" class="btn text-center" role="button" style="color: red;">
+                                            <i class="bi bi-trash3 me-1"></i>
+                                            Sil
+                                        </button>
+                                    </form>
+                                </td>
+                            }
+                            
                        
                     </tr>
                     i++;

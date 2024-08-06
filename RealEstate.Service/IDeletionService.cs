@@ -10,5 +10,9 @@ namespace RealEstate.Service
     {
         bool DeleteAnAdvert(int advertID);
         bool DeleteCompanyContactApplication(int companyContactApplicationID);
+        bool DeleteContactApplicationMessage(int contactApplicationID);
+        Task DeleteAdvertByPersonID(int personID);
+        Task DeleteCompanyByPersonID(int personID);
+        Task<bool> DeleteUser(int userID);
     }
 }

@@ -9,6 +9,8 @@ namespace RealEstate.DataAccess.Models
 {
     public class ContactApplicationModel
     {
+        public int ContactApplicationID { get; set; }
+
         [Required(ErrorMessage = "Ad alanı zorunludur.")]
         public string Name { get; set; }
 

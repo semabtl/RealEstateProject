@@ -33,11 +33,11 @@
                 <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
                     @if(advert.PathToImage != null)
                     {
-                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem;">
+                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem; object-fit: cover;">
                     }
                     else
                     {
-                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem;">
+                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem; object-fit: cover;">
                     }
                     
                     <div class="card-body text-start">

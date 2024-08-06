@@ -17,11 +17,11 @@
                                 <div class="card" style="width: 15rem;">
                                     @if (advert.PathToImage != null)
                                     {
-                                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 15rem;">
+                                        <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 100%; height: 160px; object-fit: cover;">
                                     }
                                     else
                                     {
-                                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 15rem;">
+                                        <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 100%; height: 160px; object-fit: cover;">
                                     }
                                     
                                     <div class="card-body">
@@ -56,7 +56,7 @@
                             
                             <div class="col">
                                 <div class="card" style="width: 15rem;">
-                                    <img src="@Url.Content($"~/images/{city.CityName}.png")" class="card-img-top" alt="City Image" style="width: 15rem;">
+                                    <img src="@Url.Content($"~/images/{city.CityName}.png")" class="card-img-top" alt="City Image" style="width: 100%; height: 180px; object-fit: cover;">
                                     <div class="card-body">
                                         <a href="@Url.Action("ListAdverts", "ListAdverts", new { cityName = city.CityName })" class="btn btn-outline-white btn-lg fw-bold">@city.CityName</a>
                                     </div>

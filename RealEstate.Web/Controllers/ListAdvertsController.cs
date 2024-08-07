@@ -21,6 +21,8 @@ namespace RealEstate.Web.Controllers
 
             ViewBag.CityName = cityName;
 
+            TempData["ActivePage"] = "ListAdverts";
+
             var result = _listAdvertsService.FindAdvertsByCity(userEmail, cityName);
 
             return View("~/Views/ListAdverts.cshtml", result);

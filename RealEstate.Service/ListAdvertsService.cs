@@ -57,7 +57,7 @@ namespace RealEstate.Service
                              DistrictName = district.DistrictName,
                              PaidAdvertChoice = paidAdvertPrice != null ? paidAdvertPrice.Title : null,
                              Status = advert.Status,
-                             IsFavourite = personID.HasValue && _context.Favourites.Any(f => f.AdvertID == advert.AdvertID && f.PersonID == personID)
+                             IsFavourite = personID.HasValue && _context.Favourites.Any(f => (f.AdvertID == advert.AdvertID) && (f.PersonID == personID) && (f.IsDeleted == false))
                          };
 
             var adverts = result.ToList();
@@ -73,6 +73,8 @@ namespace RealEstate.Service
 
                 advert.PathToImage = firstImagePath;
             }
+
+            
 
             return adverts;
 

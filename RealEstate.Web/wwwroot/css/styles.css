@@ -32,6 +32,28 @@ html, body {
     background-color: whitesmoke;
 }
 
+.file-preview {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.file-preview img {
+    max-width: 300px; /* Adjust size */
+    max-height: 300px; /* Adjust size */
+    object-fit: cover; /* Ensure image aspect ratio is preserved */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-control-image {
+    max-width: 350px; /* Set max-width for form inputs */
+}
+
+    
+
+
 
 
 

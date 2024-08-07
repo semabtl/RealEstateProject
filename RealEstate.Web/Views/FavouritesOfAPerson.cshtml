@@ -5,7 +5,19 @@
 }
 <body>
         <div class="container text-center mt-5">
-        <h4 class="mb-5">Favori İlanlarım</h4>
+        <h4 class="mb-5 text-start">Favori İlanlarım</h4>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
             @if (Model != null && Model.Any())
             {
                 foreach (var advert in Model)
@@ -40,12 +52,16 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-end mt-0">
-
+    
                                         @if (advert.IsFavourite)
                                         {
-                                            <a class="btn text-center" href="" role="button" style="color:red;">
-                                                <i class="bi bi-heart-fill me-1"></i>
-                                            </a>
+                                            <form id="removeFavouriteForm" method="post" action="@Url.Action("RemoveFromFavourites", "Favourites")">
+                                                <input type="hidden" name="advertID" value="@advert.AdvertID" />
+                                                <input type="hidden" name="cityName" value="@advert.CityName" />
+                                                <button type="submit" class="btn text-center" role="button" style="color:red;">
+                                                    <i class="bi bi-heart-fill me-1"></i>
+                                                </button>
+                                            </form>
                                         }
 
                                     </div>

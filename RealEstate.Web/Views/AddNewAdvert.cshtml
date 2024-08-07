@@ -4,28 +4,7 @@
 @{
     ViewBag.Title = "İlan Ver";
 }
-<head>
-    <style>
-        .file-preview {
-            margin-top: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
 
-        .file-preview img {
-                max-width: 300px; /* Adjust size */
-                max-height: 300px; /* Adjust size */
-                object-fit: cover; /* Ensure image aspect ratio is preserved */
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
-
-        .form-control-image {
-            max-width: 350px; /* Set max-width for form inputs */
-        }
-    </style>
-</head>
 <body>
     <div class="container d-flex justify-content-center align-items-center">
         <div class="row w-100 mt-2 ">
@@ -122,7 +101,7 @@
                     <div class="col-lg-3 col-md-8 p-3">
                         <div class="mb-3">
                             <p style="text-align: left;" class="fw-bold fs-3">Fotoğraf Yükle</p>
-                            <input type="file" id="fileInput" name="files" class="form-control form-control-image" multiple>
+                            <input type="file" id="fileInput" name="files" class="form-control form-control-image" accept="image/*" multiple>
                         </div>
                     </div>
 

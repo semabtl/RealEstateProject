@@ -57,9 +57,13 @@
                                     
                                     @if (advert.IsFavourite)
                                     {
-                                        <a class="btn text-center" href="" role="button" style="color:red;">
-                                            <i class="bi bi-heart-fill me-1"></i>
-                                        </a>
+                                        <form id="removeFavouriteForm" method="post" action="@Url.Action("RemoveFromFavourites", "Favourites")">
+                                            <input type="hidden" name="advertID" value="@advert.AdvertID" />
+                                            <input type="hidden" name="cityName" value="@advert.CityName" />
+                                            <button type="submit" class="btn text-center" role="button" style="color:red;">
+                                                <i class="bi bi-heart-fill me-1"></i>
+                                            </button>
+                                        </form>
                                     }
                                     
                                     else

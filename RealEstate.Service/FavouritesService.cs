@@ -70,6 +70,7 @@ namespace RealEstate.Service
                              from paidAdvert in paidAdvertJoin.DefaultIfEmpty()
                              join paidAdvertPrice in _context.PaidAdvertPrices on paidAdvert.PaidTypeID equals paidAdvertPrice.ID into paidAdvertPriceJoin
                              from paidAdvertPrice in paidAdvertPriceJoin.DefaultIfEmpty()
+                             where favourite.IsDeleted == false
                              where favourite.PersonID == person.PersonID
                              select new ListAdvertsModel
                              {
@@ -113,6 +114,33 @@ namespace RealEstate.Service
                 return Enumerable.Empty<ListAdvertsModel>();
             }          
 
+        }
+
+        public async Task<bool> RemoveFromFavourites(FavouritesModel model)
+        {
+            try
+            {
+                var person = await _context.Persons.FirstOrDefaultAsync(p => p.Email == model.UserEmail);
+                if(person == null)
+                {
+                    return false;
+                }
+
+                var favourite = await _context.Favourites.FirstOrDefaultAsync(f => (f.AdvertID == model.AdvertID) && (f.PersonID == person.PersonID) && (f.IsDeleted == false));
+                if(favourite != null)
+                {
+                    favourite.IsDeleted = true;
+                    favourite.UpdateDate = DateTime.Now;
+
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

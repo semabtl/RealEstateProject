@@ -44,6 +44,8 @@ namespace RealEstate.Web.Controllers
 
             model.UserEmail = userEmail;
 
+            TempData["ActivePage"] = "FavouritesOfAPerson";
+
             var result = _favouritesService.GetAllFavourites(model);
             if (result == null)
             {
@@ -52,6 +54,38 @@ namespace RealEstate.Web.Controllers
             
             return View("~/Views/FavouritesOfAPerson.cshtml", result);
             
+        }
+
+        [HttpPost("remove-from-favourites")]
+        public async Task<IActionResult> RemoveFromFavourites(int advertID, string cityName)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+
+            FavouritesModel model = new FavouritesModel();
+            model.UserEmail = userEmail;
+            model.AdvertID = advertID;
+            model.CityName = cityName;
+
+            var succeed = await _favouritesService.RemoveFromFavourites(model); 
+            if (succeed) 
+            {
+                TempData["SuccessMessage"] = "Seçilen ilan favorilerden kaldırıldı.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "İlan favorilerden kaldırılamadı.";
+            }
+
+            if ((string)TempData["ActivePage"] == "ListAdverts")
+            {
+                return RedirectToAction("ListAdverts", "ListAdverts", new { cityName = cityName });
+            }
+            else if((string)TempData["ActivePage"] == "FavouritesOfAPerson")
+            {
+                return RedirectToAction("GetAllFavourites", "Favourites", model);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

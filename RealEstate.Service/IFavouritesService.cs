@@ -11,5 +11,6 @@ namespace RealEstate.Service
     {
         Task<bool> AddNewFavourite(FavouritesModel model);
         IEnumerable<ListAdvertsModel> GetAllFavourites(FavouritesModel favouritesModel);
+        Task<bool> RemoveFromFavourites(FavouritesModel model);
     }
 }

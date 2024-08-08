@@ -2,11 +2,62 @@
 
 @{
     ViewBag.Title = "Tüm İlanlar";
+    //Başlığın belirlenmesi için ilk ilandan emlak türü bilgisi alınır ve Türkçeye çevrilir.
+    var firstAdvert = Model.FirstOrDefault();
+    var propertyTypeTranslations = new Dictionary<string, string>
+    {
+        { "House", "Ev" },
+        { "Land", "Arsa" },
+        { "Workplace", "İşyeri" }
+    };
+    var listingTypeTranslations = new Dictionary<string, string>
+    {
+        { "ForSale", "Satılık" },
+        { "ForRent", "Kiralık" }
+    };
+
+    //Emlak türü belirlenir.
+    string propertyTypeTitle;
+    if (firstAdvert != null)
+    {
+        if (propertyTypeTranslations.ContainsKey(firstAdvert.PropertyType.ToString()))
+        {
+            propertyTypeTitle = propertyTypeTranslations[firstAdvert.PropertyType.ToString()];
+        }
+        else
+        {
+            propertyTypeTitle = firstAdvert.PropertyType.ToString();
+        }
+    }
+    else
+    {
+        propertyTypeTitle = " ";
+    }
+
+    //İlan türü belirlenir.
+    string listingTypeTitle;
+    if ((firstAdvert != null) && (firstAdvert.Status != RealEstate.Entity.Status.Passive))
+    {
+        if (listingTypeTranslations.ContainsKey(firstAdvert.ListingType.ToString()))
+        {
+            listingTypeTitle = listingTypeTranslations[firstAdvert.ListingType.ToString()];
+        }
+        else
+        {
+            listingTypeTitle = firstAdvert.ListingType.ToString();
+        }
+    }
+    else
+    {
+        listingTypeTitle = " ";
+    }
 }
 <body>
- 
-    <h4 class="mt-5 mb-5">@ViewBag.CityName İlindeki Tüm İlanlar</h4>
-  
+    @if ((firstAdvert != null) && (firstAdvert.Status != RealEstate.Entity.Status.Passive))
+    {
+        <h4 class="mt-5 mb-5">@listingTypeTitle @propertyTypeTitle İlanları</h4>
+    }      
+
     <div class="container text-center">
         @if (TempData["SuccessMessage"] != null)
         {
@@ -20,7 +71,7 @@
                 @TempData["ErrorMessage"]
             </div>
         }
-         @if (Model != null && Model.Any())
+        @if (Model != null && Model.Any())
         {
             foreach (var advert in Model)
             {
@@ -32,7 +83,7 @@
                 var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
                 var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
                 <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
-                    @if(advert.PathToImage != null)
+                    @if (advert.PathToImage != null)
                     {
                         <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem; object-fit: cover;">
                     }
@@ -40,9 +91,9 @@
                     {
                         <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem; object-fit: cover;">
                     }
-                    
+
                     <div class="card-body text-start">
-                       
+
                         <div class="row">
                             <div class="col-6">
                                 <h5 class="card-title">@advert.Title</h5>
@@ -55,24 +106,28 @@
                             </div>
                             <div class="col-6">
                                 <div class="text-end mt-0">
-                                    
+
                                     @if (advert.IsFavourite)
                                     {
-                                        <form id="removeFavouriteForm" method="post" action="@Url.Action("RemoveFromFavourites", "Favourites")">
+                                        <form id="removeFavouriteForm" method="post" action="@Url.Action("RemoveFromFavouritesFiltered", "Favourites")">
                                             <input type="hidden" name="advertID" value="@advert.AdvertID" />
                                             <input type="hidden" name="cityName" value="@advert.CityName" />
+                                            <input type="hidden" name="listingOption" value="@advert.ListingType" />
+                                            <input type="hidden" name="propertyOption" value="@advert.PropertyType" />
                                             <button type="submit" class="btn text-center" role="button" style="color:red;">
                                                 <i class="bi bi-heart-fill me-1"></i>
                                             </button>
                                         </form>
                                     }
-                                    
+
                                     else
                                     {
-                                        
-                                        <form id="favouriteForm" method="post" action="@Url.Action("AddToFavourites", "Favourites")">
+
+                                        <form id="favouriteForm" method="post" action="@Url.Action("AddToFavouritesFiltered", "Favourites")">
                                             <input type="hidden" name="AdvertID" value="@advert.AdvertID" />
                                             <input type="hidden" name="CityName" value="@advert.CityName" />
+                                            <input type="hidden" name="listingOption" value="@advert.ListingType" />                                   
+                                            <input type="hidden" name="propertyOption" value="@advert.PropertyType" />                                   
                                             <button type="submit" class="btn text-center" role="button">
                                                 <i class="bi bi-heart me-1"></i>
                                             </button>
@@ -80,17 +135,17 @@
                                     }
                                 </div>
                                 <p class="card-text text-center mt-4 fs-5">@advert.Price TL</p>
-                                
+
                             </div>
-                        </div>   
+                        </div>
                     </div>
                 </div>
             }
         }
         else
         {
-            <p class="alert text-danger text-start fw-bold fs-5">Seçilen İlde İlan Bulunamadı</p>
-            
+            <p class="alert text-danger text-start fw-bold fs-5 mt-5">Seçilen Türde İlan Bulunamadı</p>
+
         }
     </div>
 

@@ -130,5 +130,25 @@ namespace RealEstate.Web.Controllers
 
             return RedirectToAction("ListAllUsers", "Admin");
         }
+
+        [HttpPost("delete-news")]
+        public async Task<IActionResult> DeleteNews(int newsID)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+            ViewBag.UserRole = Entity.Role.Admin;
+
+            var succeed = await _deletionService.DeleteNews(newsID);
+            if (succeed)
+            {
+                TempData["SuccessMessage"] = "Haber silindi.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Haber silinemedi.";
+            }
+
+            return RedirectToAction("ListAllNewsForAdmin", "News");
+        }
     }
 }

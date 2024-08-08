@@ -220,6 +220,25 @@ namespace RealEstate.Service
                 throw new Exception(ex.Message);
             }
         }
+        public async Task<bool> DeleteNews(int newsID)
+        {
+            try
+            {
+                var news = await _context.News.Where(n => n.NewsID == newsID).SingleOrDefaultAsync();
+                if(news != null)
+                {
+                    news.IsDeleted = true;
+                    news.UpdateDate = DateTime.Now;
 
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

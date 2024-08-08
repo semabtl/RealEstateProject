@@ -14,5 +14,6 @@ namespace RealEstate.Service
         Task DeleteAdvertByPersonID(int personID);
         Task DeleteCompanyByPersonID(int personID);
         Task<bool> DeleteUser(int userID);
+        Task<bool> DeleteNews(int newsID);
     }
 }

@@ -36,6 +36,30 @@ namespace RealEstate.Web.Controllers
            
         }
 
+        [HttpPost("add-to-favourites-filtered")]
+        public async Task<IActionResult> AddToFavouritesFiltered(FavouritesModel model, string listingOption, string propertyOption)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+            model.UserEmail = userEmail;
+
+            if (userEmail == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var succeed = await _favouritesService.AddNewFavourite(model);
+            if (succeed)
+            {
+                TempData["SuccessMessage"] = "Favorilere eklendi!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Favorilere eklenemedi.";
+            }
+            return RedirectToAction("ListAdvertsFiltered", "ListAdverts", new { listingOption = listingOption, propertyOption = propertyOption });
+            
+        }
+
         [HttpGet("get-all-favourites")]
         public IActionResult GetAllFavourites(FavouritesModel model)
         {
@@ -86,6 +110,31 @@ namespace RealEstate.Web.Controllers
                 return RedirectToAction("GetAllFavourites", "Favourites", model);
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost("remove-from-favourites-filtered")]
+        public async Task<IActionResult> RemoveFromFavouritesFiltered(int advertID, string cityName, string listingOption, string propertyOption)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+
+            FavouritesModel model = new FavouritesModel();
+            model.UserEmail = userEmail;
+            model.AdvertID = advertID;
+            model.CityName = cityName;
+
+            var succeed = await _favouritesService.RemoveFromFavourites(model);
+            if (succeed)
+            {
+                TempData["SuccessMessage"] = "Seçilen ilan favorilerden kaldırıldı.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "İlan favorilerden kaldırılamadı.";
+            }
+
+            return RedirectToAction("ListAdvertsFiltered", "ListAdverts", new { listingOption = listingOption, propertyOption = propertyOption });
+           
         }
     }
 }

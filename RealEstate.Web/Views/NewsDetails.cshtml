@@ -1,0 +1,13 @@
+﻿@model NewsModel
+@{
+}
+<body>
+    <div class="container text-center mt-5 flex-column align-items-center">
+        <h4 class="text-start text-uppercase"> @Model.Title </h4>
+        <div class="col-8 mt-4 text-justify" style="text-align: justify;">
+            <p style="color:gray;">Yayın Tarihi: @Model.PublishedDate.ToString("dd/MM/yyyy")</p>
+            <p style="color:gray;">Yazar: @Model.AuthorName @Model.AuthorSurname</p>
+            <p class="mt-4">@Model.Description</p>
+        </div>
+    </div>
+</body>

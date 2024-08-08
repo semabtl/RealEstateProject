@@ -28,6 +28,18 @@ namespace RealEstate.Web.Controllers
             return View("~/Views/ListAdverts.cshtml", result);
         
         }
+        [HttpGet("list-adverts-filtered")]
+        public IActionResult ListAdvertsFiltered(string listingOption, string propertyOption)
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            ViewBag.UserEmail = userEmail;
+
+            RealEstate.Entity.PropertyType propertyConverted = (RealEstate.Entity.PropertyType)Enum.Parse(typeof(RealEstate.Entity.PropertyType), propertyOption);
+            RealEstate.Entity.ListingType listingConverted = (RealEstate.Entity.ListingType)Enum.Parse(typeof(RealEstate.Entity.ListingType), listingOption);
+           
+            var adverts = _listAdvertsService.FindFilteredAdverts(userEmail, propertyConverted, listingConverted);
+            return View("~/Views/ListAdvertsFiltered.cshtml", adverts);
+        }
         
     }
 }

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<NewsModel>
+@{
+    ViewBag.Title = "Haberler";
+}
+<body>
+    <h4 class="mt-5 mb-5">Emlak Haberleri</h4>
+
+    <div class="container text-center">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        @if (Model != null && Model.Any())
+        {
+            foreach(var article in Model)
+            {
+                <div class="card d-flex flex-row mb-3" style="max-height: 15rem;">
+                    <div class="card-body text-start">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="card-title">@article.Title</h5>
+                                <p class="card-text">@article.AuthorName @article.AuthorSurname</p>
+                                <a href="@Url.Action("GetAnArticle", "News", new { newsID = article.NewsID })" class="btn btn-outline-dark btn mt-4">İncele</a>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-end mt-0">
+                                    <p>@article.PublishedDate.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="alert text-danger text-start fw-bold fs-5">Haber bulunmamaktadır.</p>
+        }
+    </div>
+    
+</body>

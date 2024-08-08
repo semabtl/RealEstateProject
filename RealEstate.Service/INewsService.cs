@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Service
 {
-    public interface IAddNewArticleService
+    public interface INewsService
     {
-        bool AddNewArticle(ArticleModel articleModel);
+        bool AddNewArticle(NewsModel articleModel);
+        IEnumerable<NewsModel> GetAllNews();
+        NewsModel GetAnArticle(int newsID);
     }
 }

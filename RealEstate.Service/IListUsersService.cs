@@ -10,5 +10,6 @@ namespace RealEstate.Service
     public interface IListUsersService
     {
         IEnumerable<UserInformationModel> ListAllUsers();
+        UserInformationModel GetUserInformationByEmail(string userEmail);
     }
 }

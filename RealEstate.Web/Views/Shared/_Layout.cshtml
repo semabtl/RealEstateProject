@@ -93,11 +93,12 @@
                         if(ViewBag.UserRole != RealEstate.Entity.Role.Admin)
                         {
                             <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/advertise" role="button" style="background-color: green !important;">İlan Ver</a>
+                            <a class="ms-1 btn text-white fw-bold rounded-pill d-flex align-items-center" id="ProfileButton" href="/profile-information" role="button" style="background-color: black !important;">
+                                <i class="bi bi-person-circle me-2"></i>
+                                Profil
+                            </a>
                         }
-                        <a class="ms-1 btn text-white fw-bold rounded-pill d-flex align-items-center" id="#" href="#" role="button" style="background-color: black !important;">
-                            <i class="bi bi-person-circle me-2"></i>
-                            Profil
-                        </a>
+                    
                         <form method="post" action="/Account/Logout" style="display:inline;">
                             <button type="submit" class="ms-1 btn text-white fw-bold rounded-pill" id="logoutButton" style="background-color: black !important;"> Çıkış Yap</button>
                         </form>
@@ -107,7 +108,7 @@
                         <a class="ms-auto btn text-white fw-bold rounded-pill" id="AdvertiseButton" href="/Account/Login" role="button" style="background-color: green !important;">İlan Ver</a>
                         <a class="ms-1 btn text-white fw-bold rounded-pill d-flex align-items-center" id="loginButton" href="/Account/Login" role="button" style="color: black;">
                             <i class="bi bi-person-circle me-2"></i>
-                            Giriş Yap / Üye Ol
+                            Giriş Yap
                         </a>
 
                     }

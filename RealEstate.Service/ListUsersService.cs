@@ -45,5 +45,34 @@ namespace RealEstate.Service
             }
             
         }
+
+        public UserInformationModel GetUserInformationByEmail(string userEmail)
+        {
+            try
+            {
+                var user = (from person in _context.Persons
+                            join company in _context.Companies
+                            on person.PersonID equals company.PersonID into personCompanies
+                            from company in personCompanies.DefaultIfEmpty()
+                            where person.Email == userEmail
+                            where person.IsDeleted == false
+                            select new UserInformationModel
+                            {
+                                UserID = person.PersonID,
+                                Email = person.Email,
+                                Name = person.Name,
+                                Surname = person.Surname,
+                                PhoneNumber = person.PhoneNumber,
+                                Role = person.Role,
+                                RegistrationDate = person.CreateDate,
+                                CompanyName = company != null ? company.CompanyName : null
+                            }).SingleOrDefault();
+                return user;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

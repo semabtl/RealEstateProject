@@ -1,0 +1,114 @@
+﻿@model ProfileViewModel
+@{
+    ViewBag.Title = "Profil";
+}
+<body>
+    <div class="container text-center mt-5">
+        <div class="text-start mt-5">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+            <h5 class="text-uppercase">Kişisel Bilgilerim</h5>
+            <table class="table table-bordered table-striped mt-4 mb-3 text-center">
+                <thead>
+                    <tr>               
+                        <th scope="col">Ad</th>
+                        <th scope="col">Soyad</th>
+                        <th scope="col">Telefon Numarası</th>
+                        <th scope="col">E-Posta Adresi</th>   
+                        <th scope="col">Kurum Adı</th>
+                        <th scope="col">Kayıt Tarihi</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                        <td>@Model.UserInformation.Name</td>
+                        <td>@Model.UserInformation.Surname</td>
+                        <td>@Model.UserInformation.PhoneNumber</td>
+                        <td>@Model.UserInformation.Email</td>
+                            
+                        @if (Model.UserInformation.CompanyName != null)
+                        {
+                            <td>Model.UserInformation.CompanyName</td>
+                        }
+                        else
+                        {
+                            <td> </td>
+                        }
+
+                        <td>@Model.UserInformation.RegistrationDate.ToString("dd/mm/yyyy")</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+            <h5 class="mt-5 mb-4 text-uppercase">İlanlarım</h5>
+
+            @if(Model != null && Model.AdvertsOfUser.Any())
+            {
+                foreach(var advert in Model.AdvertsOfUser)
+                {
+                    var cardClass = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "card border" : "card";
+                    var cardStyle = advert.PaidAdvertChoice == "Çerçeve İçinde Göster" ? "4px solid green !important;" : "";
+                    <div class="@cardClass d-flex flex-row mb-3" style="max-height: 15rem; border: @cardStyle">
+                        @if (advert.PathToImage != null)
+                        {
+                            <img src="@Url.Content(advert.PathToImage)" class="card-img-start" alt="..." style="width: 14rem; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <img src="~/images/default-image.png" class="card-img-start" alt="..." style="width: 14rem; object-fit: cover;">
+                        }
+
+                        <div class="card-body text-start">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title">@advert.Title</h5>
+                                    <p class="card-text">@advert.Description</p>
+                                    <div>
+                                        <i class="bi bi-geo-alt"></i> @advert.DistrictName
+                                    </div>
+
+                                    <a href="@Url.Action("GetAdvert", "AdvertDetails", new { advertID = advert.AdvertID })" class="btn btn-outline-dark btn mt-4">İncele</a>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-end mt-0">
+                                        <form id="deleteForm" method="post" action="@Url.Action("DeleteAdvert", "Profile")">
+                                            <input type="hidden" name="AdvertID" value="@advert.AdvertID" />
+                                            <button type="submit" class="btn text-center" role="button" style="color:red;">
+                                                <i class="bi bi-trash3 me-1"></i>
+                                                Sil
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <p class="card-text text-center mt-4 fs-5">@advert.Price TL</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="alert text-danger text-start fw-bold fs-5">İlan bulunmamaktadır.</p>
+            }
+        </div>
+        
+
+       
+
+    </div>
+</body>

@@ -10,9 +10,9 @@ namespace RealEstate.Service
 {
     public interface IListAdvertsService
     {
-        IEnumerable<ListAdvertsModel> FindAdvertsByCity(string userEmail, string cityName);
-        
+        IEnumerable<ListAdvertsModel> FindAdvertsByCity(string userEmail, string cityName);       
         IEnumerable<ListAdvertsModel> ListAllAdverts();
+        IEnumerable<ListAdvertsModel> FindAdvertsOfUser(string userEmail);
         IEnumerable<ListAdvertsModel> FindFilteredAdverts(string userEmail, RealEstate.Entity.PropertyType propertyType, RealEstate.Entity.ListingType listingType);
     }
 }

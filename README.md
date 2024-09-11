@@ -4,7 +4,7 @@ In this project, a website where real estate adverts are published has been crea
 **Technologies Used:** .NET 6.0, C#, Entity Framework, MSSQL Server, HTML, CSS
 ## Implementing The Project
 ### 1. Database design
-![database-ER](https://github.com/semabtl/RealEstateProject/tree/e2586bc0b4d36a072334da3021ac035d7359230a/Readme%20Images/10.png)
+![database-ER](./Readme%20Images/databaseER.png)
 ### 2.	Create The Project from Visual Studio IDE
    
 In Visual Studio, ASP.NET Core Web App(Model-View-Controller) template was chosen and the project was created.
@@ -46,13 +46,30 @@ Here are some operations that users can do from the website:
 - List all news, upload news, delete news
 
 ## Screenshots From The Project
-![image-1](Readme Images/1.png)
-![image-2](Readme Images/2.png)
-![image-3](Readme Images/3.png)
-![image-4](Readme Images/4.png)
-![image-5](Readme Images/5.png)
-![image-6](Readme Images/6.png)
-![image-7](Readme Images/7.png)
-![image-8](Readme Images/8.png)
-![image-9](Readme Images/9.png)
+### *Homepage - Part 1*
+![image-1](./Readme%20Images/mainpage1.png)
+
+### *Homepage - Part 2*
+![image-2](./Readme%20Images/mainpage2.png)
+
+### *Homepage - Part 3*
+![image-3](./Readme%20Images/mainpage3.png)
+
+### *Log In Page*
+![image-4](./Readme%20Images/loginpage.png)
+
+### *User Profile Page*
+![image-5](./Readme%20Images/profilepage.png)
+
+### *User Favourites Page*
+![image-6](./Readme%20Images/favouritespage.png)
+
+### *Filtered Advert Viewing - For Sale Listings Page*
+![image-7](./Readme%20Images/filteredadverts.png)
+
+### *News List Page*
+![image-8](./Readme%20Images/newspage.png)
+
+### *News Details Page*
+![image-9](./Readme%20Images/newsdetails.png)
 

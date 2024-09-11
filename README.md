@@ -1,8 +1,10 @@
 # Real Estate Website
 In this project, a website where real estate adverts are published has been created. Website’s language is in Turkish. Users can post and view real estate adverts on the website Users can become a corporate or individual member of the website. Records in the database can be updated by logging in as an administrator. Different operations such as adding to favourites and sending messages can also be done on the site.
+
 **Technologies Used:** .NET 6.0, C#, Entity Framework, MSSQL Server, HTML, CSS
 ## Implementing The Project
 ### 1. Database design
+![database-ER](Readme Images/10.png)
 ### 2.	Create The Project from Visual Studio IDE
    
 In Visual Studio, ASP.NET Core Web App(Model-View-Controller) template was chosen and the project was created.
@@ -44,3 +46,13 @@ Here are some operations that users can do from the website:
 - List all news, upload news, delete news
 
 ## Screenshots From The Project
+![image-1](Readme Images/1.png)
+![image-2](Readme Images/2.png)
+![image-3](Readme Images/3.png)
+![image-4](Readme Images/4.png)
+![image-5](Readme Images/5.png)
+![image-6](Readme Images/6.png)
+![image-7](Readme Images/7.png)
+![image-8](Readme Images/8.png)
+![image-9](Readme Images/9.png)
+

@@ -38,7 +38,8 @@ Here are some operations that users can do from the website:
 - Show profile
 - Delete advert
 - Update price of advert
-- If the user is admin:
+  
+If the user is admin:
 - List all adverts, delete advert
 - List all users, delete user
 - List corporate membership applications

@@ -4,7 +4,7 @@ In this project, a website where real estate adverts are published has been crea
 **Technologies Used:** .NET 6.0, C#, Entity Framework, MSSQL Server, HTML, CSS
 ## Implementing The Project
 ### 1. Database design
-![database-ER](Readme Images/10.png)
+![database-ER](/Readme Images/10.png)
 ### 2.	Create The Project from Visual Studio IDE
    
 In Visual Studio, ASP.NET Core Web App(Model-View-Controller) template was chosen and the project was created.

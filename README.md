@@ -1,5 +1,5 @@
 # Real Estate Website
-In this project, a website where real estate adverts are published has been created. Website’s language is in Turkish. Users can post and view real estate adverts on the website Users can become a corporate or individual member of the website. Records in the database can be updated by logging in as an administrator. Different operations such as adding to favourites and sending messages can also be done on the site.
+In this project, a website where real estate adverts are published has been created. Website’s language is in Turkish. Users can post and view real estate adverts on the website. Users can become a corporate or individual member of the website. Records in the database can be updated by logging in as an administrator. Different operations such as adding to favourites and sending messages can also be done on the site.
 
 **Technologies Used:** .NET 6.0, C#, Entity Framework, MSSQL Server, HTML, CSS
 ## Implementing The Project
